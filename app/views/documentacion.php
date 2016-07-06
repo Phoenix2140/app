@@ -62,8 +62,9 @@
 							<div class="well well-sm">
 								{<br>
 									&emsp;"return" 	: true,<br>
-									&emsp;"alumnos"		: {<br>
-															&emsp;&emsp;&emsp;&emsp;{
+									&emsp;"alumnos"		: <br>
+									 &emsp;&emsp;{<br>
+															&emsp;&emsp;&emsp;&emsp;{ <br>
 																&emsp;&emsp;&emsp;&emsp;&emsp;"rut": "111",<br>
 																&emsp;&emsp;&emsp;&emsp;&emsp;"nombre"	: "Juan"<br>
 																&emsp;&emsp;&emsp;&emsp;&emsp;"apellido_p"	: "Targaryen"<br>
@@ -92,6 +93,41 @@
 																&emsp;&emsp;&emsp;&emsp;&emsp;"situacion"	: true/false<br>
 
 															&emsp;&emsp;&emsp;&emsp;} <br>
+									&emsp;&emsp;}<br>
+								}
+							</div>
+						</code>
+						<p>Si es erronea retorna</p>
+						<code>
+							<div class="well well-sm">
+								{<br>
+									&emsp;"return": false<br>
+								}
+							</div>
+						</code>
+					</div>
+					<p>2.1.2.- Para obtener un único estudiante por su rut se utiliza el método 
+						<span class="text-danger">GET</span> a la siguiente dirección: 
+						<span class="text-primary">/estudiantes/{keyUsuario}/{id-rut}</span> </p>
+					<div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-6 col-md-offset-6 col-lg-6 col-lg-offset-6">
+						<p>Retorna (si obtiene respuesta afirmativa)</p>
+						<code>
+							<div class="well well-sm">
+								{<br>
+									&emsp;"return" 	: true,<br>
+									&emsp;"alumno"		: {<br>
+									&emsp;&emsp;{ <br>
+																&emsp;&emsp;"rut": "111",<br>
+																&emsp;&emsp;"nombre"	: "Juan"<br>
+																&emsp;&emsp;"apellido_p"	: "Targaryen"<br>
+																&emsp;&emsp;"apellido_m"	: "Stark"<br>
+																&emsp;&emsp;"fecha_in"	: "05-03-2011"<br>
+																&emsp;&emsp;"domicilio"	: "Winterfell"<br>
+																&emsp;&emsp;"telefono"	: "----"<br>
+																&emsp;&emsp;"profesion"	: "Espadachín"<br>
+																&emsp;&emsp;"t_estudio"	: true/false<br>
+																&emsp;&emsp;"situacion"	: true/false<br>
+									&emsp;&emsp;} <br>
 									&emsp;}<br>
 								}
 							</div>
@@ -105,7 +141,6 @@
 							</div>
 						</code>
 					</div>
-					
 				</div>
 			</div>
 		</div>

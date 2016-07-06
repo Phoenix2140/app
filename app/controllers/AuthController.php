@@ -35,7 +35,6 @@
 				}else{
 					return array('return' => false);	
 				}
-				return array('return' => true, 'usuario' => );
 			}else{
 				return array('return' => false);
 			}

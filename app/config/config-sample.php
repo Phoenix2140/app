@@ -28,8 +28,8 @@ $config->set('baseUrl', 'http://mvc.dev'); // Página web base a la que pertenec
  
 $config->set('adapter', 'mysql'); // Driver de base de datos (puede cambiar a los drives que se mencionan en config/loader.php)
 $config->set('host', 'localhost'); // Dirección del servidor de la Base de datos
-$config->set('username', 'root'); // Usuario de la Base de datos
-$config->set('password', 'phnx'); // Contraseña de la base de datos
+$config->set('username', 'usuario'); // Usuario de la Base de datos
+$config->set('password', 'pass'); // Contraseña de la base de datos
 $config->set('dbname', 'tabla'); // Nombre de la base de datos
 $config->set('charset', 'utf8'); // Codificación de la base de datos
 

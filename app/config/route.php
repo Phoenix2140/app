@@ -10,7 +10,10 @@
 	$documetacion = new DocumentacionController($config);
 
 	require_once($config->get('controllersDir').'LoginController.php');
-	$ogin = new LoginController($config);
+	$login = new LoginController($config);
+
+	require_once($config->get('controllersDir').'EstudiantesController.php');
+	$controladorEstudiantes = new EstudiantesController($config);
 
 	
 	/**
@@ -44,9 +47,11 @@
 					 * un usuario, si no tiene el ID de estudiante se devuelven todos los estudiantes 
 					 */
 					if(is_null($enlace[$config->get('deep')+2])){
-
+						//Se le envía el parámetro 1 = key y el parametro 2 es el id o rut
+						$controladorEstudiantes->mostrarEstudianteID($enlace[$config->get('deep')+1], 
+							$enlace[$config->get('deep')+2]);
 					}else{
-
+						$controladorEstudiantes->mostrarEstudiantes($enlace[$config->get('deep')+1]);
 					}
 				}else{
 
