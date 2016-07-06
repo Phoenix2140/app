@@ -7,7 +7,7 @@
 	* Informix, Firebird, Oracle, ODBC, Postgree SQL, SQLite
 	* y 4D)
 	*/
-	// require($config->get('baseDir').'Database.php');
+	require($config->get('baseDir').'Database.php');
 
 	/**
 	 * En este archivo se llaman y se cargan las rutas
