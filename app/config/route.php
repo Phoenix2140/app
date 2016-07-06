@@ -38,12 +38,12 @@
 				/**
 				 * Si existe la llave realiza la función, sino devuelve un false
 				 */
-				if(isset($enlace[$config->get('deep')]+1)){
+				if(isset($enlace[$config->get('deep')+1])){
 					/**
 					 * Si existe el ID de estudiante se realiza la opción única para obtener
 					 * un usuario, si no tiene el ID de estudiante se devuelven todos los estudiantes 
 					 */
-					if(is_null($enlace[$config->get('deep')]+2)){
+					if(is_null($enlace[$config->get('deep')+2])){
 
 					}else{
 
