@@ -18,38 +18,40 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 						<p>Campos de envío</p>
-						<code>
-							<div class="well well-sm">
+						<div class="well well-sm">
+							<code>
 								{<br>
 									&emsp;"user": "rut-usuario",<br>
 									&emsp;"pass": "su contraseña"<br>
 								}
-							</div>
-						</code>
+							</code>
+						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 						<p>Retorna (si obtiene respuesta afirmativa)</p>
-						<code>
-							<div class="well well-sm">
+						<div class="well well-sm">
+							<code>
 								{<br>&emsp;"return" 	: true,
 								<br>&emsp;"user"		: {
 									<br>&emsp;&emsp;"nombre": "Juan Nieves",
+									<br>&emsp;&emsp;"rol": "Admin",
 									<br>&emsp;&emsp;"key"	: "LlaveDeAccesoExtraLarga"<br>
 									&emsp;}<br>
 								}
-							</div>
-						</code>
+							</code>
+						</div>
 						<p>Si es erronea retorna</p>
-						<code>
-							<div class="well well-sm">
+						<div class="well well-sm">
+							<code>
 								{<br>
-									&emsp;"return": false<br>
+									&emsp;"return": false,<br>
+									&emsp;"msgError": "Mensaje de error"<br>
 								}
-							</div>
-						</code>
+							</code>
+						</div>
 					</div>
 					<!--Sección de usuarios-->
-					<h2>2.- Crud estudiantes</h2>
+					<!-- <h2>2.- Crud estudiantes</h2>
 					<p>2.1.- Para leer los estudiantes existen 2 posibilidades, obtenerlos todos o 
 						obtener un estudiante por su ID.</p>
 					<p>2.1.1.- Para obtener todos los estudiantes se utiliza el método 
@@ -140,6 +142,69 @@
 								}
 							</div>
 						</code>
+					</div> -->
+					<h2>2.- Crud para las Líneas de investigación</h2>
+					<p>2.1.1.- Para obtener todas las líneas se utiliza el método <span class="text-danger">GET</span> a la siguiente dirección: 
+						<span class="text-primary">/lineas/{keyUsuario}</span></p>
+					<div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-6 col-md-offset-6 col-lg-6 col-lg-offset-6">
+						<p>Si el resultado es afirmativo, retorna el siguiente JSON</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return" 	: true,<br>
+									&emsp;"lineas"		: <br>
+									 &emsp;&emsp;{<br>
+															&emsp;&emsp;&emsp;&emsp;{ <br>
+																&emsp;&emsp;&emsp;&emsp;&emsp;"cod_linea": "1",<br>
+																&emsp;&emsp;&emsp;&emsp;&emsp;"nom_linea"	: "Juan"<br>
+															&emsp;&emsp;&emsp;&emsp;},<br>
+															&emsp;&emsp;&emsp;&emsp;{<br>
+																&emsp;&emsp;&emsp;&emsp;&emsp;... <br>
+		
+															&emsp;&emsp;&emsp;&emsp;},<br>
+															&emsp;&emsp;&emsp;&emsp;{<br>
+																&emsp;&emsp;&emsp;&emsp;&emsp;"cod_linea": "N",<br>
+																&emsp;&emsp;&emsp;&emsp;&emsp;"nom_linea"	: "N"<br>
+															&emsp;&emsp;&emsp;&emsp;} <br>
+									&emsp;&emsp;}<br>
+								}
+							</code>
+						</div>
+						<p>Si es erronea retorna</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return": false,<br>
+									&emsp;"msgError": "Mensaje de error"<br>
+								}
+							</code>
+						</div>
+					</div>
+					<p>2.1.2.- Para obtener una determinada linea por su ID, usar el método <span class="text-danger">GET</span> a la siguiente dirección: 
+						<span class="text-primary">/linea/{keyUsuario}/{cod_linea}</span></p>
+					<div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-6 col-md-offset-6 col-lg-6 col-lg-offset-6">
+						<p>Si el resultado es afirmativo, retorna el siguiente JSON</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return" 	: true,<br>
+									&emsp;"linea"		: <br>
+									 &emsp;&emsp;{<br>
+										&emsp;&emsp;&emsp;"cod_linea": "1",<br>
+										&emsp;&emsp;&emsp;"nom_linea"	: "Juan"<br>
+									&emsp;&emsp;}<br>
+								}
+							</code>
+						</div>
+						<p>Si es erronea retorna</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return": false,<br>
+									&emsp;"msgError": "Mensaje de error"<br>
+								}
+							</code>
+						</div>
 					</div>
 				</div>
 			</div>

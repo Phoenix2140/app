@@ -5,14 +5,14 @@
 	 */
 	Class AuthController{
 		private $config;	//variable para el objeto Config()
-		private $usuarios; 	//variable para el objeto Usuarios()
+		private $logins; 	//variable para el objeto Logins()
 
 		//Constructor del controlador
 		public function __construct($config){
 			$this->config = $config;
 
-			require_once($this->config->get('modelsDir').'Usuarios.php');
-			$this->usuarios = new Usuarios($this->config);
+			require_once($this->config->get('modelsDir').'Logins.php');
+			$this->logins = new Logins($this->config);
 		}
 
 		/**
@@ -24,7 +24,7 @@
 			 * se realiza una acción
 			 */
 			if($this->comprobarKeyNula($key)){
-				$user = $this->usuarios->getUsuarioKey($key);
+				$user = $this->logins->getUsuarioByKey($key);
 				/**
 				 * Si la llave coincide con la del usuario que retorna todo 
 				 * está OK, y se devuelve un true más los datos de usuario;
@@ -33,10 +33,10 @@
 				if(isset($user["key"]) && $user["key"] == $key){
 					return array('return' => true, 'usuario' => $user);
 				}else{
-					return array('return' => false);	
+					return array('return' => false, 'msgError' => 'Llave de usuario inválida');	
 				}
 			}else{
-				return array('return' => false);
+				return array('return' => false, 'msgError' => 'No se proporcionó la llave');
 			}
 		}
 

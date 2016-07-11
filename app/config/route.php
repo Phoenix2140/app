@@ -6,14 +6,21 @@
 	require_once($config->get('baseDir').'Router.php');
 	$ruta = new Router();
 
+	//Cargamos el controlador DocumentacionController para mostrar la vista de documentación
 	require_once($config->get('controllersDir').'DocumentacionController.php');
 	$documetacion = new DocumentacionController($config);
 
+	//Cargamos el controlador LoginController para el manejo de login(enviar la llave)
 	require_once($config->get('controllersDir').'LoginController.php');
 	$login = new LoginController($config);
 
+	//Cargamos el controlador de EstudiantesController par el manejo de estudiantes
 	require_once($config->get('controllersDir').'EstudiantesController.php');
 	$controladorEstudiantes = new EstudiantesController($config);
+
+	//Cargamos el controlador para obtener las lineas
+	require_once($config->get('controllersDir').'LineaController.php');
+	$controladorLinea = new LineaController($config);
 
 	
 	/**
@@ -54,11 +61,20 @@
 						$controladorEstudiantes->mostrarEstudiantes($enlace[$config->get('deep')+1]);
 					}
 				}else{
-
+					echo json_encode(array('response' => false, 'msgError' => 'No se proporcionó la llave de acceso'));
+				}
+				break;
+			case 'lineas':
+				if(isset($enlace[$config->get('deep')+1])){
+					
+					$controladorLinea->obtenerListaLinea($enlace[$config->get('deep')+1]);
+				}else{
+					
+					echo json_encode(array('response' => false, 'msgError' => 'No se proporcionó la llave de acceso'));
 				}
 				break;
 			default:
-				echo json_encode(array('response' => false));
+				echo json_encode(array('response' => false, 'msgError' => 'Página encontrada no encontrada'));
 				break;
 		}
 
@@ -75,7 +91,7 @@
 				$login->login($_POST);
 				break;
 			default:
-				echo json_encode(array('response' => false));
+				echo json_encode(array('response' => false, 'msgError' => 'No se detectó acción alguna'));
 				break;
 		}
 

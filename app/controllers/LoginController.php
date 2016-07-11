@@ -4,7 +4,7 @@
 	 */
 	Class LoginController{
 		private $config;
-		private $usuarios;
+		private $logins;
 
 		/**
 		 * Constructor del controlador Login
@@ -14,29 +14,41 @@
 
 			/**
 			 * Llamamos al modelo usuario para el manejo de esta base de datos
-			 * y posteriormente creamos un objeto de tipo usuarios
+			 * y posteriormente creamos un objeto de tipo logins
 			 */
-			require_once($this->config->get('modelsDir').'Usuarios.php');
-			$this->usuarios = new Usuarios($this->config);
+			require_once($this->config->get('modelsDir').'Logins.php');
+			$this->logins = new Logins($this->config);
 		}
 
+		/**
+		 * Función para poder loggearse; recibe un usuario y contraseña
+		 * devolviendo datos básicos y la llave de acceso al usuario.
+		 */
 		public function login($post){
+			//Comprobamos que los campos no estén vacíos
 			if($this->comprobarDatos($post)){
-				$usuario = $this->usuarios->getLogin($post["user"], $post["pass"]);
+				//Llamamos al modelo consultando por el usuario y contraseña
+				$usuario = $this->logins->getUsuarioKey($post["user"], $post["pass"]);
 
+				//Si el usuario existe y devuelve una llave se le retorna al usuario,
+				//sino devuelve un error
 				if(isset($usuario["key"]) && !is_null($usuario["key"])){
 					echo json_encode(array('return' => true, 'user' => $usuario));
 				}else{
-					echo json_encode(array('return' => false, ));				
+					echo json_encode(array('return' => false, 'msgError' => 'El usuario o contraseña son inválidos'));				
 				}
 			}else{
-				echo json_encode(array('return' => false));
+				echo json_encode(array('return' => false, 'msgError' => 'Uno de los campos está vacío'));
 			}
 		}
 
+		/**
+		 * Función que comprueba que los campos son enviados correctamente y no
+		 * estén vacíos
+		 */
 		private function comprobarDatos($post){
 			if((isset($post["user"]) && !is_null($post["user"])) 
-				&& (isset($post["pass"]) && !is_null($post["oass"]))){
+				&& (isset($post["pass"]) && !is_null($post["pass"]))){
 				return true;
 			}else{
 				return false;
