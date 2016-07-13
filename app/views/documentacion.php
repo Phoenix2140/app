@@ -50,6 +50,7 @@
 							</code>
 						</div>
 					</div>
+					
 					<!--Sección de usuarios-->
 					<!-- <h2>2.- Crud estudiantes</h2>
 					<p>2.1.- Para leer los estudiantes existen 2 posibilidades, obtenerlos todos o 
@@ -202,6 +203,43 @@
 								{<br>
 									&emsp;"return": false,<br>
 									&emsp;"msgError": "Mensaje de error"<br>
+								}
+							</code>
+						</div>
+					</div>
+					<p>2.2.- Para ingresar una nueva línea se utiliza el método <span class="text-danger">POST</span>
+						a la dirección: <span class="text-primary">/linea/</span></p>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<p>Campos de envío</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"key": "llave_de_usuario",<br>
+									&emsp;"nombre": "Nombre de linea"<br>
+								}
+							</code>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<p>Retorna (si obtiene respuesta afirmativa)</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return" 	: true,<br>
+									&emsp;"linea"		: <br>
+									 &emsp;&emsp;{<br>
+										&emsp;&emsp;&emsp;"cod_linea": "1",<br>
+										&emsp;&emsp;&emsp;"nom_linea"	: "Juan"<br>
+									&emsp;&emsp;}<br>
+								}
+							</code>
+						</div>
+						<p>Si es erronea retorna</p>
+						<div class="well well-sm">
+							<code>
+								{<br>
+									&emsp;"return" 	: false,<br>
+									&emsp;"msgError"		: "Mensaje de error"<br>
 								}
 							</code>
 						</div>

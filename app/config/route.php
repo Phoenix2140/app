@@ -6,23 +6,20 @@
 	require_once($config->get('baseDir').'Router.php');
 	$ruta = new Router();
 
-	//Cargamos el controlador DocumentacionController para mostrar la vista de documentación
+	//Incluimos los controladores necesarios
 	require_once($config->get('controllersDir').'DocumentacionController.php');
-	$documetacion = new DocumentacionController($config);
-
-	//Cargamos el controlador LoginController para el manejo de login(enviar la llave)
 	require_once($config->get('controllersDir').'LoginController.php');
-	$login = new LoginController($config);
-
-	//Cargamos el controlador de EstudiantesController par el manejo de estudiantes
 	require_once($config->get('controllersDir').'EstudiantesController.php');
-	$controladorEstudiantes = new EstudiantesController($config);
-
-	//Cargamos el controlador para obtener las lineas
 	require_once($config->get('controllersDir').'LineaController.php');
-	$controladorLinea = new LineaController($config);
 
-	
+	//Asignamos los controladores a las variables objeto
+	$login = new LoginController($config);
+	$documetacion = new DocumentacionController($config);
+	$ctrlEstudiante = new EstudiantesController($config);
+	$ctrlLinea = new LineaController($config);
+
+	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
+
 	/**
 	 * Se separan las rutas por los métodos GET y POST
 	 * que son los métodos más utilizados, se pueden 
@@ -40,41 +37,48 @@
 		/**
 		 * El Switch utiliza una accion dependiendo de la ruta.
 		 */
-		switch ($enlace[$config->get('deep')]){
-			case 'doc':
-				$documetacion->indexAction();
+		switch ($enlace[$seccion]){
+			case 'doc': $documetacion->indexAction();
 				break;
 			case 'estudiantes':
 				/**
 				 * Si existe la llave realiza la función, sino devuelve un false
 				 */
-				if(isset($enlace[$config->get('deep')+1])){
+				if(isset($enlace[$seccion+1])){
 					/**
 					 * Si existe el ID de estudiante se realiza la opción única para obtener
 					 * un usuario, si no tiene el ID de estudiante se devuelven todos los estudiantes 
 					 */
-					if(is_null($enlace[$config->get('deep')+2])){
+					if(is_null($enlace[$seccion+2])){
 						//Se le envía el parámetro 1 = key y el parametro 2 es el id o rut
-						$controladorEstudiantes->mostrarEstudianteID($enlace[$config->get('deep')+1], 
-							$enlace[$config->get('deep')+2]);
+						$ctrlEstudiante->mostrarEstudianteID($enlace[$seccion+1], 
+							$enlace[$seccion+2]);
 					}else{
-						$controladorEstudiantes->mostrarEstudiantes($enlace[$config->get('deep')+1]);
+						$ctrlEstudiante->mostrarEstudiantes($enlace[$seccion+1]);
 					}
 				}else{
-					echo json_encode(array('response' => false, 'msgError' => 'No se proporcionó la llave de acceso'));
+					noKey(); //Mensaje de error ()
 				}
 				break;
 			case 'lineas':
-				if(isset($enlace[$config->get('deep')+1])){
+				if(isset($enlace[$seccion+1])){
 					
-					$controladorLinea->obtenerListaLinea($enlace[$config->get('deep')+1]);
+					$ctrlLinea->obtenerListaLinea($enlace[$seccion+1]);
 				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
+
+			case 'linea':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
 					
-					echo json_encode(array('response' => false, 'msgError' => 'No se proporcionó la llave de acceso'));
+					$ctrlLinea->obtenerLineaID($enlace[$seccion+1], $enlace[$seccion+2]);
+				}else{
+					noKey(); //Mensaje de error ()
 				}
 				break;
 			default:
-				echo json_encode(array('response' => false, 'msgError' => 'Página encontrada no encontrada'));
+				noAction();
 				break;
 		}
 
@@ -85,13 +89,40 @@
 		 */
 		$enlace = $ruta->enlace();
 
-		switch ($enlace[$config->get('deep')]){
-			case 'login':
-				
-				$login->login($_POST);
+		switch ($enlace[$seccion]){
+			case 'login': $login->login($_POST);
 				break;
-			default:
-				echo json_encode(array('response' => false, 'msgError' => 'No se detectó acción alguna'));
+			case 'linea': $ctrlLinea->crearLinea($_POST);
+				break;
+			default: noAction();
+				break;
+		}
+
+	}elseif($ruta->get() == 'PUT'){
+		
+		$_PUT = $ruta->getDATA(); //Obtenemos los datos enviados mediante el método PUT
+		
+		$enlace = $ruta->enlace();
+
+		switch ($enlace[$seccion]) {
+			case 'linea': $ctrlLinea->actualizarLineaID($_PUT);
+				break;
+			
+			default: noAction();
+				break;
+		}
+
+	}elseif($ruta->get() == 'DELETE'){
+		
+		$_DELETE = $ruta->getDATA(); //Obtenemos los datos enviados mediante el método DELETE
+
+		$enlace = $ruta->enlace();
+
+		switch ($enlace[$seccion]) {
+			case 'linea': $ctrlLinea->eliminarLineaID($_DELETE);
+				break;
+			
+			default: noAction();
 				break;
 		}
 
@@ -99,6 +130,14 @@
 		/**
 		 * Pueden agregarse más Métodos
 		 */
-		echo "Nothing";
+		noAction();
+	}
+
+	function noAction(){
+		echo json_encode(array('response' => false, 'msgError' => 'No se detectó acción alguna'));
+	}
+
+	function noKey(){
+		echo json_encode(array('response' => false, 'msgError' => 'No se proporcionó la llave de acceso'));
 	}
  ?>

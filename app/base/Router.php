@@ -37,6 +37,15 @@
 			return explode('/', $path = empty($_SERVER['REQUEST_URI']) ? false : $_SERVER['REQUEST_URI']);
 		}
 
+		/**
+		 * Función que transforma el data en raw a una variable conocida tipo $_POST
+		 */
+		public function getDATA(){
+			parse_str(file_get_contents('php://input', false , null, -1 , $_SERVER['CONTENT_LENGTH']), $data);
+
+			return $data;
+		}
+
 	}
 
  ?>

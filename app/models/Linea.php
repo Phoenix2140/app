@@ -24,6 +24,17 @@
 			//TODO: consultar si desean el ID como retorno
 		}
 
+		//Crear una linea
+		public function crearLineaRetornarId($nombre){
+			$this->db->query("INSERT INTO linea (nom_linea) VALUES (:nombre)");
+
+			$this->db->bind(':nombre', $nombre);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//Obtener las lineas
 		public function getLineas(){
 			$this->db->query("SELECT * FROM linea");
