@@ -21,6 +21,17 @@
 			$this->db->execute();
 		}
 
+		//crear entrada en tipo_user y devolver ID
+		public function createTipoUserReturnId($descripcion){
+			$this->db->query("INSERT INTO tipo_user(desc_user) VALUES (:descripcion)");
+
+			$this->db->bind(':descripcion', $descripcion);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//obtener entradas de tipo_user
 		public function getTipoUser(){
 			$this->db->query("SELECT * FROM tipo_user");

@@ -11,12 +11,14 @@
 	require_once($config->get('controllersDir').'LoginController.php');
 	require_once($config->get('controllersDir').'EstudiantesController.php');
 	require_once($config->get('controllersDir').'LineaController.php');
+	require_once($config->get('controllersDir').'TipoUserController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
 	$documetacion = new DocumentacionController($config);
 	$ctrlEstudiante = new EstudiantesController($config);
 	$ctrlLinea = new LineaController($config);
+	$ctrlTipoUser = new TipoUserController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -77,6 +79,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'tipouser':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlTipoUser->getTipoUserById($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlTipoUser->getListTipoUser($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -94,6 +107,9 @@
 				break;
 			case 'linea': $ctrlLinea->crearLinea($_POST);
 				break;
+			case 'tipouser': $ctrlTipoUser->createTipoUser($_POST);
+				# code...
+				break;
 			default: noAction();
 				break;
 		}
@@ -106,6 +122,8 @@
 
 		switch ($enlace[$seccion]) {
 			case 'linea': $ctrlLinea->actualizarLineaID($_PUT);
+				break;
+			case 'tipouser': $ctrlTipoUser->updateTipoUser($_PUT);
 				break;
 			
 			default: noAction();
@@ -120,6 +138,8 @@
 
 		switch ($enlace[$seccion]) {
 			case 'linea': $ctrlLinea->eliminarLineaID($_DELETE);
+				break;
+			case 'tipouser': $ctrlTipoUser->deleteTipoUser($_DELETE);
 				break;
 			
 			default: noAction();

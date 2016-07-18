@@ -14,6 +14,14 @@
 			echo json_encode(array('return' => true, 'msg' => "Operación realizada con éxito"));
 		}
 
+		public function successUpdate(){
+			echo json_encode(array('return' => true, 'msg' => "Se ha actualizado el registro satisfactoriamente"));
+		}
+
+		public function successDelete(){
+			echo json_encode(array('return' => true, 'msg' => "Se ha eliminado el registro satisfactoriamente"));
+		}
+
 		/**
 		 * Mensajes de Error
 		 */
