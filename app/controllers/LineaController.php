@@ -6,6 +6,7 @@
 		private $config;
 		private $lineas;
 		private $authKey;
+		private $msgController;
 
 		//Constructor de la clase
 		public function __construct($config){
@@ -18,6 +19,10 @@
 			//Invocamos al controlador de sesiones
 			require_once($this->config->get('controllersDir').'AuthController.php');
 			$this->authKey = new AuthController($config);
+
+			//Invocamos al controlador de mensajes de error
+			require_once($this->config->get('controllersDir').'MsgController.php');
+			$this->msgController = new msgController();
 		}
 
 		/**
@@ -46,10 +51,12 @@
 
 					echo json_encode(array('return' => true, 'lineas' => $listaLineas));
 				}else{
-					echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso inválida'));
+					//Llamamos a la función que entrega el mensaje de error falso
+					$this->msgController->invalidKey();
 				}
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso nula'));
+				//Mostramos el mensaje de error de llave nula
+				$this->msgController->nullKey();
 			}
 		}
 
@@ -67,10 +74,11 @@
 
 					echo json_encode(array('return' => true, 'linea' => $datos));
 				}else{
-					echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso inválida'));
+					//Llamamos a la función que entrega el mensaje de error falso
+					$this->msgController->invalidKey();
 				}
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'La llave y/o el ID son nulos'));
+				$this->msgController->noKeyNoId();
 			}
 		}
 
@@ -89,46 +97,67 @@
 					echo json_encode(array('return' => true, 
 						'linea' => array('col_linea' => $id_linea, 'nom_linea' => $post["nombre"])));
 				}else{
-					echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso inválida'));
+					//Llamamos a la función que entrega el mensaje de error falso
+					$this->msgController->invalidKey();
 				}
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'La llave y/o nombre son nulos'));
+				$this->msgController->noKeyNoName();
 			}
 		}
 
+		/**
+		 * Actualizamos el nombre de la Linea por su ID
+		 */
 		public function actualizarLineaID($put){
+			//Se comprueba que los valores necesarios no sean nulos
 			if( (isset($put["key"]) && $this->comprobarValor($put["key"])) 
 				&& (isset($put["id"]) && $this->comprobarValor($put["id"]))
 				&& (isset($put["nombre"]) && $this->comprobarValor($put["nombre"]))){
 
+				//Comprobamos la llave de usuario
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
+				//Si el acceso es satisfactorio, realiza la acción, sino termina el procedimiento
 				if ($user['return']) {
+					//Se llama a la función editarLineaID() del modelo Lineas.
 					$this->lineas->editarLineaId( $put["id"], $put["nombre"]);
 
-					echo json_encode(array('return' => true));
+					$this->msgController->successOp();
 				} else {
-					echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso inválida'));
+					//Llamamos a la función que entrega el mensaje de error falso
+					$this->msgController->invalidKey();
 				}
 			
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'La llave y/o ID son nulos'));
+				//llamamos a la función privada noKeyNoId para mostrar mensaje de error que falta llave y/o ID
+				$this->msgController->noKeyNoId();
 			}
 		}
 
+		/**
+		 * Eliminamos una linea por su ID
+		 * TODO: verificar si se eliminaran los datos anidados (relacionados)
+		 * 		con la linea.
+		 */
 		public function eliminarLineaID($delete){
-			if( (isset($delete["key"]) && $this->comprobarValor($delete["key"])) && (isset($delete["id"]) && $this->comprobarValor($delete["id"]))){
+			//Comprobamos que los valores enviados sean los correctos y no sean nulos
+			if( (isset($delete["key"]) && $this->comprobarValor($delete["key"])) 
+				&& (isset($delete["id"]) && $this->comprobarValor($delete["id"]))){
 
+				//Comprobamos la llave de usuario
 				$user = $this->authKey->comprobarAuth($delete["key"]);
 
 				if ($user['return']) {
-					echo json_encode(array('return' => true));
+					$this->lineas->delLineaId($delete["id"]);
+					$this->msgController->successOp();
 				} else {
-					echo json_encode(array('return' => false, 'msgError' => 'Llave de acceso inválida'));
+					//Llamamos a la función que entrega el mensaje de error falso
+					$this->msgController->invalidKey();
 				}
 				
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'La llave y/o ID son nulos'));
+				//llamamos a la función privada noKeyNoId para mostrar mensaje de error que falta llave y/o ID
+				$this->msgController->noKeyNoId();
 			}
 		}
 

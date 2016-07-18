@@ -64,7 +64,7 @@
 
 		//ELiminar una linea por su ID
 		public function delLineaId($id){
-			$this->db->query("DELETE FROM linea WHERE cod_linea=.id");
+			$this->db->query("DELETE FROM linea WHERE cod_linea=:id");
 
 			$this->db->bind(':id', $id);
 

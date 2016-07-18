@@ -4,7 +4,6 @@
 	 *  la estructura es la siguiente:
 	 *		rut 				varchar(30)
   	 *		nombre 				varchar(10)
-  	 *		pass 				varchar(10)
   	 *		ap_pat 				varchar(15)
   	 *		ap_mat 				varchar(15)
   	 *		cod_prof 			tinyint(4)
@@ -16,7 +15,6 @@
   	 *		telefono 			varchar(13)
   	 *		fecha-nac  			date 
   	 *		fecha-contratacion 	date 
-  	 *		key 				varchar(10)
 	 */
 
 	Class Usuarios{
@@ -35,20 +33,19 @@
 		/**
 		 * Función que ingresa un nuevo usuario a la base de datos
 		 */
-		public function crearUsuario( $rut, $nombre, $pass, $ap_pat, 
+		public function crearUsuario( $rut, $nombre, $ap_pat, 
 			$ap_mat, $cod_prof, $cod_mg, $cod_doct, $cod_postdoct, 
 			$cod_user, $email, $telefono, $fecha_nac, $fecha_contratacion){
 
 			$this->db->query("INSERT INTO usuario( rut, nombre, pass, ap_pat, 
 				ap_mat, cod_prof, cod_mg, cod_doct, cod_postdoct, cod_user, 
-				email, telefono, fecha-nac, fecha-contratacion, key)
-			 	VALUES (:rut, :nombre, :pass, :ap_pat, :ap_mat, :cod_prof, 
+				email, telefono, fecha-nac, fecha-contratacion)
+			 	VALUES (:rut, :nombre, :ap_pat, :ap_mat, :cod_prof, 
 			 		:cod_mg, :cod_doct, : cod_postdoct, :cod_user, :email, 
-			 		:telefono, :fecha_nac, :fecha_contratacion, :key)");
+			 		:telefono, :fecha_nac, :fecha_contratacion)");
 
 			$this->db->bind(':rut', $rut);
 			$this->db->bind(':nombre', $nombre);
-			$this->db->bind(':pass', $pass);
 			$this->db->bind(':ap_pat', $ap_pat);
 			$this->db->bind(':ap_mat', $ap_mat);
 			$this->db->bind(':cod_prof', $cod_prof);
@@ -60,34 +57,70 @@
 			$this->db->bind(':telefono', $telefono);
 			$this->db->bind(':fecha_nac', $fecha_nac);
 			$this->db->bind(':fecha_contratacion', $fecha_contratacion);
-			$this->db->bind(':key', md5($email).md5(time()));
 
 			$this->db->execute();
 
 		}
 
 		/**
-		 * Función que retorna el nombre y la llave de usuario
-		 * con su usuario y contraseña
+		 * Obtener todos los usuarios
 		 */
-		public function getLogin($rut, $pass){
-			$this->db->query("SELECT nombre, key FROM usuario WHERE rut=:rut AND pass=:pass");
+		public function getUsuario(){
+			$this->db->query("SELECT * FROM usuario");
 
-			$this->db->bind(':rut', $rut);
-			$this->db->bind(':pass', $pass);
+			return $this->db->resultSet();
+		}
+
+		/**
+		 * Obtener un usuario por su ID
+		 */
+		public function getUsuarioById($id){
+			$this->db->query("SELECT * FROM usuario WHERE rut=:id");
+
+			$this->db->bind(':id', $id);
 
 			return $this->db->single();
 		}
 
 		/**
-		 * Función que obtiene el usuario por su llave (key)
+		 * Editar un usuario por su ID
 		 */
-		public function getUsuarioKey($key){
-			$this->db->query("SELECT * FROM usuario WHERE key=:key");
+		public function updateUsuarioById($rut, $nombre, $ap_pat, 
+			$ap_mat, $cod_prof, $cod_mg, $cod_doct, $cod_postdoct, 
+			$cod_user, $email, $telefono, $fecha_nac, $fecha_contratacion){
 
-			$this->db->bind('key', $key);
+			$this->db->query("UPDATE usuario SET nombre=:nombre, ap_pat=:ap_pat, 
+				ap_mat=:ap_mat, cod_prof=:cod_prof, cod_mg=:cod_mg, cod_doct=:cod_doct, 
+				cod_postdoct=:cod_postdoct, cod_user=:cod_user, email=:email, 
+				telefono=:telefono, fecha-nac=:fecha_nac, 
+				fecha-contratacion=:fecha_contratacion WHERE rut=:rut:");
 
-			return $this->db->single();
+			$this->db->bind(':rut', $rut);
+			$this->db->bind(':nombre', $nombre);
+			$this->db->bind(':ap_pat', $ap_pat);
+			$this->db->bind(':ap_mat', $ap_mat);
+			$this->db->bind(':cod_prof', $cod_prof);
+			$this->db->bind(':cod_mg', $cod_mg);
+			$this->db->bind(':cod_doct', $cod_doct);
+			$this->db->bind(':cod_postdoct', $cod_postdoct);
+			$this->db->bind(':cod_user', $cod_user);
+			$this->db->bind(':email', $email);
+			$this->db->bind(':telefono', $telefono);
+			$this->db->bind(':fecha_contratacion', $fecha_contratacion);
+			$this->db->bind(':fecha_nac', $fecha_nac);
+
+			$this->db->execute();
+		}
+
+		/**
+		 * Eliminar un usuario por su ID
+		 */
+		public function deleteUsuarioById($id){
+			$this->db->query("DELETE FROM usuario WHERE rut=:id ");
+
+			$this->db->bind(':id', $id);
+
+			$this->db->execute();
 		}
 
 	}

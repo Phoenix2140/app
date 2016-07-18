@@ -5,6 +5,7 @@
 	Class LoginController{
 		private $config;
 		private $logins;
+		private $msgController;
 
 		/**
 		 * Constructor del controlador Login
@@ -18,6 +19,9 @@
 			 */
 			require_once($this->config->get('modelsDir').'Logins.php');
 			$this->logins = new Logins($this->config);
+
+			require_once($this->config->get('controllersDir').'MsgController.php');
+			$this->msgController = new MsgController();
 		}
 
 		/**
@@ -35,10 +39,10 @@
 				if(isset($usuario["key"]) && !is_null($usuario["key"])){
 					echo json_encode(array('return' => true, 'user' => $usuario));
 				}else{
-					echo json_encode(array('return' => false, 'msgError' => 'El usuario o contraseña son inválidos'));				
+					$this->msgController->invalidUserPass();				
 				}
 			}else{
-				echo json_encode(array('return' => false, 'msgError' => 'Uno de los campos está vacío'));
+				$this->msgController->nullVar();
 			}
 		}
 

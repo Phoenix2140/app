@@ -6,6 +6,7 @@
 	Class AuthController{
 		private $config;	//variable para el objeto Config()
 		private $logins; 	//variable para el objeto Logins()
+		private $msgController;
 
 		//Constructor del controlador
 		public function __construct($config){
@@ -13,6 +14,10 @@
 
 			require_once($this->config->get('modelsDir').'Logins.php');
 			$this->logins = new Logins($this->config);
+
+			//Invocamos al controlador de mensajes de error
+			require_once($this->config->get('controllersDir').'MsgController.php');
+			$this->msgController = new MsgController();
 		}
 
 		/**
@@ -33,10 +38,10 @@
 				if(isset($user["key"]) && $user["key"] == $key){
 					return array('return' => true, 'usuario' => $user);
 				}else{
-					return array('return' => false, 'msgError' => 'Llave de usuario inválida');	
+					$this->msgController->invalidKey;
 				}
 			}else{
-				return array('return' => false, 'msgError' => 'No se proporcionó la llave');
+				$this->msgController->nullKey();
 			}
 		}
 
