@@ -12,6 +12,7 @@
 	require_once($config->get('controllersDir').'EstudiantesController.php');
 	require_once($config->get('controllersDir').'LineaController.php');
 	require_once($config->get('controllersDir').'TipoUserController.php');
+	require_once($config->get('controllersDir').'ProfesionController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -19,6 +20,7 @@
 	$ctrlEstudiante = new EstudiantesController($config);
 	$ctrlLinea = new LineaController($config);
 	$ctrlTipoUser = new TipoUserController($config);
+	$ctrlProfesion = new ProfesionController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -90,6 +92,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'profesion':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlProfesion->getProfesionID($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlProfesion->getProfesion($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -108,7 +121,8 @@
 			case 'linea': $ctrlLinea->crearLinea($_POST);
 				break;
 			case 'tipouser': $ctrlTipoUser->createTipoUser($_POST);
-				# code...
+				break;
+			case 'profesion': $ctrlProfesion->createProfesion($_POST);
 				break;
 			default: noAction();
 				break;
@@ -125,7 +139,8 @@
 				break;
 			case 'tipouser': $ctrlTipoUser->updateTipoUser($_PUT);
 				break;
-			
+			case 'profesion': $ctrlProfesion->updateProfesion($_PUT);
+				break;
 			default: noAction();
 				break;
 		}
@@ -141,7 +156,8 @@
 				break;
 			case 'tipouser': $ctrlTipoUser->deleteTipoUser($_DELETE);
 				break;
-			
+			case 'profesion': $ctrlProfesion->deleteProfesion($_DELETE);
+				break;
 			default: noAction();
 				break;
 		}

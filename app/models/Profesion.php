@@ -21,6 +21,17 @@
 			$this->db->execute();
 		}
 
+		//Crear entrada en la tabla
+		public function createProfesionReturnId($profesion){
+			$this->db->query("INSERT INTO profesion(nom_prof) VALUES (:profesion)");
+
+			$this->db->bind(':profesion', $profesion);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//Obtener datos de la tabla
 		public function getProfesion(){
 			$this->db->query("SELECT * FROM profesion");
