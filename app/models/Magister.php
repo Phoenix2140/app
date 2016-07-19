@@ -21,6 +21,17 @@
 			$this->db->execute();
 		}
 
+		//Crear una entrada en la tabla y devolver el ID de creación
+		public function createMagisterReturnID($nombre){
+			$this->db->query("INSERT INTO magister(nom_mg) VALUES (:nombre)");
+
+			$this->db->bind(':nombre', $nombre);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//Obtener las entradas de la tabla
 		public function getMagister(){
 			$this->db->query("SELECT * FROM magister");
@@ -42,6 +53,8 @@
 			$this->db->query("UPDATE magister SET nom_mg=:nombre WHERE cod_mg=:id");
 
 			$this->db->bind(':id', $id);
+			$this->db->bind(':nombre', $nombre);
+
 
 			$this->db->execute();
 		}
