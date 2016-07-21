@@ -790,7 +790,7 @@
 						    <div class="panel-heading" role="tab" id="Doctorado">
 						      <h4 class="panel-title">
 						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDoctorado" aria-expanded="false" aria-controls="collapseDoctorado">
-						          7.- Post Doctorado
+						          6.- Doctorado
 						        </a>
 						      </h4>
 						</div>
@@ -971,7 +971,7 @@
 						    <div class="panel-heading" role="tab" id="Doctorado">
 						      <h4 class="panel-title">
 						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDoctorado" aria-expanded="false" aria-controls="collapseDoctorado">
-						          6.- Doctorado
+						          7.- Post Doctorado
 						        </a>
 						      </h4>
 						</div>
