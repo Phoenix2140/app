@@ -15,6 +15,7 @@
 	require_once($config->get('controllersDir').'ProfesionController.php');
 	require_once($config->get('controllersDir').'MagisterController.php');
 	require_once($config->get('controllersDir').'DoctoradoController.php');
+	require_once($config->get('controllersDir').'PostDoctoradoController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -25,6 +26,7 @@
 	$ctrlProfesion = new ProfesionController($config);
 	$ctrlMagister = new MagisterController($config);
 	$ctrlDoctorado = new DoctoradoController($config);
+	$ctrlPostDoc = new PostDoctoradoController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -129,6 +131,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'postdoc':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlPostDoc->getPostDoctById($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlPostDoc->getPostDoctoradoList($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -154,6 +167,8 @@
 				break;
 			case 'doctorado': $ctrlDoctorado->createDoctorado($_POST);
 				break;
+			case 'postdoc': $ctrlPostDoc->createPostDoct($_POST);
+				break;
 			default: noAction();
 				break;
 		}
@@ -175,6 +190,8 @@
 				break;
 			case 'doctorado': $ctrlDoctorado->updateDoctorado($_PUT);
 				break;
+			case 'postdoc': $ctrlPostDoc->updatePostDoct($_PUT);
+				break;
 			default: noAction();
 				break;
 		}
@@ -195,6 +212,8 @@
 			case 'magister': $ctrlMagister->deleteMagister($_DELETE);
 				break;
 			case 'doctorado': $ctrlDoctorado->deleteDoctorado($_DELETE);
+				break;
+			case 'postdoc': $ctrlPostDoc->deletePostDoct($_DELETE);
 				break;
 			default: noAction();
 				break;

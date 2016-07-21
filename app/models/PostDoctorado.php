@@ -23,6 +23,18 @@
 			$this->db->execute();
 		}
 
+		//Crear entrada post_doctorado y retornar su ID
+		public function createPostDoctReturnId($nombre, $origen){
+			$this->db->query("INSERT INTO post_doctorado(nom_postdoct, origen) VALUES (:nombre, :origen)");
+
+			$this->db->bind(':nombre', $nombre);
+			$this->db->bind(':origen', $origen);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//obtener entradas de post_doctorado
 		public function getPostDoct(){
 			$this->db->query("SELECT * FROM post_doctorado");
