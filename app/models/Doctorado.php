@@ -21,6 +21,17 @@
 			$this->db->execute();
 		}
 
+		//Crear entrada en la tabla
+		public function createDoctoradoReturnId($nombre){
+			$this->db->query("INSERT INTO doctorado(nom_doct) VALUES (:nombre)");
+
+			$this->db->bind(':nombre', $nombre);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+		}
+
 		//Obtener los datos del doctorado
 		public function getDoctorado(){
 			$this->db->query("SELECT * FROM doctorado");
