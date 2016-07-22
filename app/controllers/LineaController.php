@@ -70,9 +70,17 @@
 				if($user["return"]){
 
 					$datos = $this->lineas->getLineaId($id);
-					$datos["nom_linea"] = utf8_encode($datos["nom_linea"]);
 
-					echo json_encode(array('return' => true, 'linea' => $datos));
+					if (isset($datos["cod_linea"]) && $datos["cod_linea"] != "") {
+						
+						$datos["nom_linea"] = utf8_encode($datos["nom_linea"]);
+
+						echo json_encode(array('return' => true, 'linea' => $datos));
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				}else{
 					//Llamamos a la función que entrega el mensaje de error falso
 					$this->msgController->invalidKey();
@@ -119,10 +127,20 @@
 
 				//Si el acceso es satisfactorio, realiza la acción, sino termina el procedimiento
 				if ($user['return']) {
-					//Se llama a la función editarLineaID() del modelo Lineas.
-					$this->lineas->editarLineaId( $put["id"], $put["nombre"]);
 
-					$this->msgController->successOp();
+					//Se obtiene los datos por el id para comprobar que existe la linea, si existe se edita
+					$datos = $this->lineas->getLineaId($put["id"]);
+
+					if (isset($datos["cod_linea"]) && $datos["cod_linea"] != "") {
+						
+						//Se llama a la función editarLineaID() del modelo Lineas.
+						$this->lineas->editarLineaId( $put["id"], $put["nombre"]);
+
+						$this->msgController->successOp();
+					} else {
+						
+						$this->msgController->noData();
+					}
 				} else {
 					//Llamamos a la función que entrega el mensaje de error falso
 					$this->msgController->invalidKey();

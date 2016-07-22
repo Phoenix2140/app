@@ -59,10 +59,18 @@
 				$user = $this->authKey->comprobarAuth($key);
 
 				if ($user["return"]) {
+					
 					$datos = $this->tipoUser->getTipoUserById($id);
-					$datos["desc_user"] = utf8_encode($datos["desc_user"]);
+					if (isset($datos["cod_user"]) && $datos["cod_user"] != "") {
+						
+						$datos["desc_user"] = utf8_encode($datos["desc_user"]);
 
-					echo json_encode(array('return' => true, 'tipoUser' => $datos));
+						echo json_encode(array('return' => true, 'tipoUser' => $datos));
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}
@@ -106,10 +114,18 @@
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
 				if ($user["return"]) {
-					
-					$this->tipoUser->updateTipoUserById( $put["id"], $put["descripcion"]);
 
-					$this->msgController->successUpdate(); //mensaje satisfactorio
+					$datos = $this->tipoUser->getTipoUserById($put["id"]);
+					if (isset($datos["cod_user"]) && $datos["cod_user"] != "") {
+						
+						$this->tipoUser->updateTipoUserById( $put["id"], $put["descripcion"]);
+
+						$this->msgController->successUpdate(); //mensaje satisfactorio
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}

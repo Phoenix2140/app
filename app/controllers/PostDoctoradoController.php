@@ -59,11 +59,18 @@
 				if ($user["return"]) {
 
 					$data = $this->postdoct->getPostDoctById($id);
-					
-					$data["nom_postdoct"] = utf8_encode($data["nom_postdoct"]);
-					$data["origen"] = utf8_encode($data["origen"]);
 
-					echo json_encode(array('return' => true, 'postdoctorado' => $data));
+					if (isset($data["cod_postdoct"]) && $data["cod_postdoct"] != "") {
+						
+						$data["nom_postdoct"] = utf8_encode($data["nom_postdoct"]);
+						$data["origen"] = utf8_encode($data["origen"]);
+
+						echo json_encode(array('return' => true, 'postdoctorado' => $data));
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 
 					$this->msgController->invalidKey();
@@ -112,10 +119,19 @@
 				
 				$user = $this->authKey->comprobarAuth($put["key"]);
 				if ($user["return"]) {
-					
-					$this->postdoct->updatePostDoctById( $put["id"] , $put["nombre"] , $put["origen"]);
 
-					$this->msgController->successUpdate();
+					$data = $this->postdoct->getPostDoctById($put["id"]);
+
+					if (isset($data["cod_postdoct"]) && $data["cod_postdoct"] != "") {
+						
+						$this->postdoct->updatePostDoctById( $put["id"] , $put["nombre"] , $put["origen"]);
+
+						$this->msgController->successUpdate();
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 
 					$this->msgController->invalidKey();

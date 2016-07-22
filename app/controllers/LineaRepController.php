@@ -66,10 +66,16 @@
 				if ($user["return"]) {
 					
 					$data = $this->linearep->getLineaRepByDate($fecha);
+					if (isset($data["fecha_adscripcion"]) && $data["fecha_adscripcion"] != "") {
+						
+						$data["rut_participante"] = utf8_encode($data["rut_participante"]);
 
-					$data["rut_participante"] = utf8_encode($data["rut_participante"]);
+						echo json_encode(array('return' => true, 'linearep' => $data));
+					} else {
+						
+						$this->msgController->dateDoesNotExist();
+					}
 
-					echo json_encode(array('return' => true, 'linearep' => $data));
 				} else {
 					
 					$this->msgController->invalidKey();

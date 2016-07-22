@@ -57,10 +57,18 @@
 				$user = $this->authKey->comprobarAuth($key);
 
 				if ($user["return"]) {
+					
 					$data = $this->profesion->getProfesionById($id);
-					$data["nom_prof"] = utf8_encode($data["nom_prof"]);
+					
+					if (isset($data["cod_prof"]) && $data["cod_prof"] != "") {
+						
+						$data["nom_prof"] = utf8_encode($data["nom_prof"]);
 
-					echo json_encode(array('return' => true, 'profesion' => $data));
+						echo json_encode(array('return' => true, 'profesion' => $data));
+					} else {
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}
@@ -105,9 +113,18 @@
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
 				if ($user["return"]) {
-					$this->profesion->updateProfesionById($put["id"], $put["profesion"]);
 
-					$this->msgController->successUpdate();
+					$data = $this->profesion->getProfesionById($put["id"]);
+					
+					if (isset($data["cod_prof"]) && $data["cod_prof"] != "") {
+						
+						$this->profesion->updateProfesionById($put["id"], $put["profesion"]);
+
+						$this->msgController->successUpdate();
+					} else {
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}

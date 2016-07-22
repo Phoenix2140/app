@@ -61,9 +61,14 @@
 				if ($user["return"]) {
 					
 					$data = $this->resp->getRespById($id);
-					$data["descripcion_resp"] = utf8_encode($data["descripcion_resp"]);
+					if (isset($data["cod_resp"]) && $data["cod_resp"] != "") {
+						$data["descripcion_resp"] = utf8_encode($data["descripcion_resp"]);
 
-					echo json_encode(array('return' => true, 'resp' => $data));
+						echo json_encode(array('return' => true, 'resp' => $data));
+					} else {
+						$this->msgController->noData();
+					}
+					
 				} else {
 					
 					$this->msgController->invalidKey();
@@ -111,10 +116,16 @@
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
 				if ($user["return"]) {
-					
-					$this->resp->editRespById( $put["id"], $put["descripcion"]);
 
-					$this->msgController->successUpdate();
+					$data = $this->resp->getRespById($put["id"]);
+					if (isset($data["cod_resp"]) && $data["cod_resp"] != "") {
+						$this->resp->editRespById( $put["id"], $put["descripcion"]);
+
+						$this->msgController->successUpdate();
+					} else {
+						$this->msgController->noData();
+					}
+					
 				} else {
 					
 					$this->msgController->invalidKey();

@@ -59,9 +59,17 @@
 				if ($user["return"]) {
 					
 					$data = $this->doctorado->getDoctoradoById($id);
-					$data["nom_doct"] = utf8_encode($data["nom_doct"]);
 
-					echo json_encode(array('return' => true, 'doctorado' => $data));
+					if (isset($data["cod_doct"]) && $data["cod_doct"] != "") {
+						
+						$data["nom_doct"] = utf8_encode($data["nom_doct"]);
+
+						echo json_encode(array('return' => true, 'doctorado' => $data));
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}
@@ -107,10 +115,19 @@
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
 				if ($user["return"]) {
-					
-					$this->doctorado->updateDoctoradoById( $put["id"], $put["nombre"]);
 
-					$this->msgController->successUpdate();
+					$data = $this->doctorado->getDoctoradoById($put["id"]);
+
+					if (isset($data["cod_doct"]) && $data["cod_doct"] != "") {
+						
+						$this->doctorado->updateDoctoradoById( $put["id"], $put["nombre"]);
+
+						$this->msgController->successUpdate();
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}

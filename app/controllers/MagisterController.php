@@ -62,9 +62,17 @@
 					
 					$data = $this->magister->getMagisterById($id);
 
-					$data["nom_mg"] = utf8_encode($data["nom_mg"]);
+					if (isset($data["cod_mg"]) && $data["cod_mg"] != "") {
+						
+						$data["nom_mg"] = utf8_encode($data["nom_mg"]);
 
-					echo json_encode(array('return' => true, 'magister' => $data));
+						echo json_encode(array('return' => true, 'magister' => $data));
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
+
 				} else {
 					$this->msgController->invalidKey();
 				}
@@ -114,10 +122,19 @@
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
 				if ($user["return"]) {
-					
-					$this->magister->editMagisterById( $put["id"], $put["nombre"]);
 
-					$this->msgController->successUpdate();
+					$data = $this->magister->getMagisterById($put["id"]);
+
+					if (isset($data["cod_mg"]) && $data["cod_mg"] != "") {
+						
+						$this->magister->editMagisterById( $put["id"], $put["nombre"]);
+
+						$this->msgController->successUpdate();
+					} else {
+						
+						$this->msgController->noData();
+					}
+					
 				} else {
 					$this->msgController->invalidKey();
 				}
