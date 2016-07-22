@@ -57,6 +57,10 @@
 			$this->sendErrMessage('La fecha que intenta editar no existe');
 		}
 
+		public function noData(){
+			$this->sendErrMessage('No se encontró los datos que busca');
+		}
+
 		private function sendErrMessage($message){
 			echo json_encode(array('return' => false, 'msgError' => $message));	
 		}
