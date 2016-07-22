@@ -36,6 +36,15 @@
 			return $this->db->resultSet();
 		}
 
+		//ObtenerLineaRep
+		public function getLineaRepByDate($fecha){
+			$this->db->query("SELECT * FROM linea_rep WHERE fecha_adscripcion=:fecha");
+
+			$this->db->bind(':fecha', $fecha);
+
+			return $this->db->single();
+		}
+
 		//Editar LineaRep
 		public function editLineaRepByDate($fecha, $rut, $linea, $resp, $termino){
 			$this->db->query("UPDATE linea_rep SET rut_participante=:rut, cod_linea=:linea, 

@@ -38,7 +38,7 @@
 				if(isset($user["key"]) && $user["key"] == $key){
 					return array('return' => true, 'usuario' => $user);
 				}else{
-					$this->msgController->invalidKey;
+					$this->msgController->invalidKey();
 				}
 			}else{
 				$this->msgController->nullKey();

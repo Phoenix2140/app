@@ -17,6 +17,7 @@
 	require_once($config->get('controllersDir').'DoctoradoController.php');
 	require_once($config->get('controllersDir').'PostDoctoradoController.php');
 	require_once($config->get('controllersDir').'RespController.php');
+	require_once($config->get('controllersDir').'LineaRepController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -29,6 +30,7 @@
 	$ctrlDoctorado = new DoctoradoController($config);
 	$ctrlPostDoc = new PostDoctoradoController($config);
 	$ctrlResp = new RespController($config);
+	$ctrlLineaRep = new LineaRepController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -155,6 +157,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'linearep':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlLineaRep->getLineaRepId($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlLineaRep->getLineRepList($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -184,6 +197,8 @@
 				break;
 			case 'resp': $ctrlResp->createResp($_POST);
 				break;
+			case 'linearep': $ctrlLineaRep->createLineaRep($_POST);
+				break;
 			default: noAction();
 				break;
 		}
@@ -209,6 +224,8 @@
 				break;
 			case 'resp': $ctrlResp->editResp($_PUT);
 				break;
+			case 'linearep': $ctrlLineaRep->updateLineaRep($_PUT);
+				break;
 			default: noAction();
 				break;
 		}
@@ -233,6 +250,8 @@
 			case 'postdoc': $ctrlPostDoc->deletePostDoct($_DELETE);
 				break;
 			case 'resp': $ctrlResp->deleteResp($_DELETE);
+				break;
+			case 'linearep': $ctrlLineaRep->deleteLineaRep($_DELETE);
 				break;
 			default: noAction();
 				break;
