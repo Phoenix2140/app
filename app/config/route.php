@@ -19,6 +19,7 @@
 	require_once($config->get('controllersDir').'RespController.php');
 	require_once($config->get('controllersDir').'LineaRepController.php');
 	require_once($config->get('controllersDir').'LaboratorioController.php');
+	require_once($config->get('controllersDir').'LabRepController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -33,6 +34,7 @@
 	$ctrlResp = new RespController($config);
 	$ctrlLineaRep = new LineaRepController($config);
 	$ctrlLaboratorio = new LaboratorioController($config);
+	$ctrlLabRep = new LabRepController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -181,6 +183,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'labrep':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlLabRep->getLabRep($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlLabRep->getLabRepList($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -214,6 +227,8 @@
 				break;
 			case 'laboratorio': $ctrlLaboratorio->createLaboratorio($_POST);
 				break;
+			case 'labrep': $ctrlLabRep->createLabRep($_POST);
+				break;
 			default: noAction();
 				break;
 		}
@@ -243,6 +258,8 @@
 				break;
 			case 'laboratorio': $ctrlLaboratorio->updateLaboratorio($_PUT);
 				break;
+			case 'labrep': $ctrlLabRep->updateLabRep($_PUT);
+				break;
 			default: noAction();
 				break;
 		}
@@ -271,6 +288,8 @@
 			case 'linearep': $ctrlLineaRep->deleteLineaRep($_DELETE);
 				break;
 			case 'laboratorio': $ctrlLaboratorio->deleteLaboratorio($_DELETE);
+				break;
+			case 'labrep': $ctrlLabRep->deleteLabRep($_DELETE);
 				break;
 			default: noAction();
 				break;

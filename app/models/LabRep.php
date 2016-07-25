@@ -30,11 +30,37 @@
 
 		}
 
+		//Ingresar nueva entrada y retorna el Id del elemento creado
+		public function createLabRepReturnId($fecha, $rut, $laboratorio, $resp, $termino){
+			$this->db->query("INSERT INTO lab_rep( fecha_ads, rut_part, cod_lab, cod_resp, fecha_ter) 
+				VALUES (:fecha, :rut, :laboratorio, :resp, :termino)");
+
+			$this->db->bind(':fecha', $fecha);
+			$this->db->bind(':rut', $rut);
+			$this->db->bind(':laboratorio', $laboratorio);
+			$this->db->bind(':resp', $resp);
+			$this->db->bind(':termino', $termino);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
+
+		}
+
 		//obtener datos de la tabla
 		public function getLabRep(){
 			$this->db->query("SELECT * FROM lab_rep");
 
 			return $this->db->resultSet();
+		}
+
+		//obtener datos de la tabla
+		public function getLabRepByDate($fecha){
+			$this->db->query("SELECT * FROM lab_rep WHERE fecha_ads=:fecha");
+
+			$this->db->bind(':fecha', $fecha);
+
+			return $this->db->single();
 		}
 
 		//editar datos por la fecha
