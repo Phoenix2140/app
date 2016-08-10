@@ -628,7 +628,7 @@
 													 &emsp;&emsp;{<br>
 																			&emsp;&emsp;&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_mg": "1",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_mg"	: "Nombre de magister"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_mg"	: "Nombre de magister"<br>
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;... <br>
@@ -636,7 +636,7 @@
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_mg": "N",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_mg"	: "N"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_mg"	: "N"<br>
 																			&emsp;&emsp;&emsp;&emsp;} <br>
 													&emsp;&emsp;}<br>
 												}
@@ -663,7 +663,7 @@
 													&emsp;"return" 	: true,<br>
 													&emsp;"magister"		:&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;"cod_mg": "1",<br>
-																				&emsp;&emsp;&emsp;"nom_mg"	: "Nombre Magister"<br>
+																				&emsp;&emsp;&emsp;"nombre_mg"	: "Nombre Magister"<br>
 																			&emsp;&emsp;}<br>
 												}
 											</code>
@@ -700,7 +700,7 @@
 													&emsp;"magister"		: <br>
 													 &emsp;&emsp;{<br>
 														&emsp;&emsp;&emsp;"cod_mg": "1",<br>
-														&emsp;&emsp;&emsp;"nom_mg"	: "Nombre Magister"<br>
+														&emsp;&emsp;&emsp;"nombre_mg"	: "Nombre Magister"<br>
 													&emsp;&emsp;}<br>
 												}
 											</code>
@@ -809,7 +809,7 @@
 													 &emsp;&emsp;{<br>
 																			&emsp;&emsp;&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_doct": "1",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_doct"	: "Nombre de magister"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_doct"	: "Nombre de magister"<br>
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;... <br>
@@ -817,7 +817,7 @@
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_doct": "N",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_doct"	: "N"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_doct"	: "N"<br>
 																			&emsp;&emsp;&emsp;&emsp;} <br>
 													&emsp;&emsp;}<br>
 												}
@@ -844,7 +844,7 @@
 													&emsp;"return" 	: true,<br>
 													&emsp;"doct"		:&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;"cod_doct": "1",<br>
-																				&emsp;&emsp;&emsp;"nom_doct"	: "Nombre Magister"<br>
+																				&emsp;&emsp;&emsp;"nombre_doct"	: "Nombre Magister"<br>
 																			&emsp;&emsp;}<br>
 												}
 											</code>
@@ -881,7 +881,7 @@
 													&emsp;"doctorado"		: <br>
 													 &emsp;&emsp;{<br>
 														&emsp;&emsp;&emsp;"cod_doct": "1",<br>
-														&emsp;&emsp;&emsp;"nom_doct"	: "Nombre Magister"<br>
+														&emsp;&emsp;&emsp;"nombre_doct"	: "Nombre Magister"<br>
 													&emsp;&emsp;}<br>
 												}
 											</code>
@@ -990,7 +990,7 @@
 													 &emsp;&emsp;{<br>
 																			&emsp;&emsp;&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_postdoct": "1",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_postdoct"	: "Nombre de post doctorado"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_postdoc"	: "Nombre de post doctorado"<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"origen"	: "Origen postdoctoado"<br>
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
@@ -999,7 +999,7 @@
 																			&emsp;&emsp;&emsp;&emsp;},<br>
 																			&emsp;&emsp;&emsp;&emsp;{<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"cod_postdoct": "N",<br>
-																				&emsp;&emsp;&emsp;&emsp;&emsp;"nom_postdoct"	: "N"<br>
+																				&emsp;&emsp;&emsp;&emsp;&emsp;"nombre_postdoc"	: "N"<br>
 																				&emsp;&emsp;&emsp;&emsp;&emsp;"origen"	: "N"<br>
 																			&emsp;&emsp;&emsp;&emsp;} <br>
 													&emsp;&emsp;}<br>
@@ -1027,7 +1027,7 @@
 													&emsp;"return" 	: true,<br>
 													&emsp;"doct"		:&emsp;&emsp;{ <br>
 																				&emsp;&emsp;&emsp;"cod_postdoct": "1",<br>
-																				&emsp;&emsp;&emsp;"nom_postdoct"	: "Nombre de post doctorado"<br>
+																				&emsp;&emsp;&emsp;"nombre_postdoc"	: "Nombre de post doctorado"<br>
 																				&emsp;&emsp;&emsp;"origen"	: "Origen postdoctoado"<br>
 																			&emsp;&emsp;}<br>
 												}
@@ -1065,7 +1065,7 @@
 													&emsp;"postdoctorado"		: <br>
 													 &emsp;&emsp;{<br>
 														&emsp;&emsp;&emsp;"cod_postdoct": "1",<br>
-														&emsp;&emsp;&emsp;"nom_postdoct"	: "Nombre de post doctorado"<br>
+														&emsp;&emsp;&emsp;"nombre_postdoc"	: "Nombre de post doctorado"<br>
 														&emsp;&emsp;&emsp;"origen"	: "Origen postdoctoado"<br>
 													&emsp;&emsp;}<br>
 												}

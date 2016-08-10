@@ -1,9 +1,9 @@
 <?php 
 	/**
-	 * Modelo para la tabla doctorado
+	 * Modelo para la tabla doctorados
 	 * Estructura de la tabla
 	 * 		cod_doct 	TINYINT(4)
-	 * 		nom_doct	VARCHAR(90)
+	 * 		nombre_doct	VARCHAR(90)
 	 */
 	Class Doctorado{
 		private $db;
@@ -14,7 +14,7 @@
 
 		//Crear entrada en la tabla
 		public function createDoctorado($nombre){
-			$this->db->query("INSERT INTO doctorado(nom_doct) VALUES (:nombre)");
+			$this->db->query("INSERT INTO doctorados(nombre_doct) VALUES (:nombre)");
 
 			$this->db->bind(':nombre', $nombre);
 
@@ -23,7 +23,7 @@
 
 		//Crear entrada en la tabla
 		public function createDoctoradoReturnId($nombre){
-			$this->db->query("INSERT INTO doctorado(nom_doct) VALUES (:nombre)");
+			$this->db->query("INSERT INTO doctorados(nombre_doct) VALUES (:nombre)");
 
 			$this->db->bind(':nombre', $nombre);
 
@@ -34,14 +34,14 @@
 
 		//Obtener los datos del doctorado
 		public function getDoctorado(){
-			$this->db->query("SELECT * FROM doctorado");
+			$this->db->query("SELECT * FROM doctorados");
 
 			return $this->db->resultSet();
 		}
 
 		//Obtener datos del doctorado por su ID
 		public function getDoctoradoById($id){
-			$this->db->query("SELECT * FROM doctorado WHERE cod_doct=:id");
+			$this->db->query("SELECT * FROM doctorados WHERE cod_doct=:id");
 
 			$this->db->bind(':id', $id);
 
@@ -50,7 +50,7 @@
 
 		//Actualizar los datos por su ID
 		public function updateDoctoradoById($id, $nombre){
-			$this->db->query("UPDATE doctorado SET nom_doct=:nombre WHERE cod_doct=:id");
+			$this->db->query("UPDATE doctorados SET nombre_doct=:nombre WHERE cod_doct=:id");
 
 			$this->db->bind(':id', $id);
 			$this->db->bind(':nombre', $nombre);
@@ -60,7 +60,7 @@
 
 		//Eliminar entrada por su ID
 		public function deleteDoctoradoById($id){
-			$this->db->query("DELETE FROM doctorado WHERE cod_doct=:id");
+			$this->db->query("DELETE FROM doctorados WHERE cod_doct=:id");
 
 			$this->db->bind(':id', $id);
 

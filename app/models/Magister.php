@@ -3,7 +3,7 @@
 	 * Modelo para la tabla magister
 	 * Estructura de la tabla:
 	 * 		cod_mg 			TINYINT(4)
-	 *		nom_mg			VARCHAR(65)
+	 *		nombre_mg			VARCHAR(65)
 	 */
 	Class Magister{
 		private $db;
@@ -14,7 +14,7 @@
 
 		//Crear una entrada en la tabla
 		public function createMagister($nombre){
-			$this->db->query("INSERT INTO magister(nom_mg) VALUES (:nombre)");
+			$this->db->query("INSERT INTO magister(nombre_mg) VALUES (:nombre)");
 
 			$this->db->bind(':nombre', $nombre);
 
@@ -23,7 +23,7 @@
 
 		//Crear una entrada en la tabla y devolver el ID de creación
 		public function createMagisterReturnID($nombre){
-			$this->db->query("INSERT INTO magister(nom_mg) VALUES (:nombre)");
+			$this->db->query("INSERT INTO magister(nombre_mg) VALUES (:nombre)");
 
 			$this->db->bind(':nombre', $nombre);
 
@@ -50,7 +50,7 @@
 
 		//Editar una entrada por su ID
 		public function editMagisterById($id, $nombre){
-			$this->db->query("UPDATE magister SET nom_mg=:nombre WHERE cod_mg=:id");
+			$this->db->query("UPDATE magister SET nombre_mg=:nombre WHERE cod_mg=:id");
 
 			$this->db->bind(':id', $id);
 			$this->db->bind(':nombre', $nombre);

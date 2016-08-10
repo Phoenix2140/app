@@ -34,6 +34,7 @@
 					foreach ($this->laboratorio->getLaboratorio() as $lab) {
 						$data[$contador]["cod_lab"] = $lab["cod_lab"];
 						$data[$contador]["des_lab"] = utf8_encode($lab["des_lab"]);
+						$data[$contador]["nom_encargado"] = utf8_encode($lab["nom_encargado"]);
 						++$contador;
 					}
 
@@ -59,6 +60,7 @@
 					
 					if (isset($data["cod_lab"]) && $data["cod_lab"] != "") {
 						$data["des_lab"] = utf8_encode($data["des_lab"]);
+						$data["nom_encargado"] = utf8_encode($data["nom_encargado"]);
 
 						echo json_encode(array('return' => true, 'laboratorio' => $data));
 					} else {
@@ -78,11 +80,12 @@
 		//Crear una entrada de Laboratorio
 		public function createLaboratorio($post){
 			if ( (isset($post["key"]) && $this->comprobarValor($post["key"])) 
-				&& (isset($post["descripcion"]) && $this->comprobarValor($post["descripcion"]))) {
+				&& (isset($post["descripcion"]) && $this->comprobarValor($post["descripcion"]))
+				&& (isset($post["encargado"]) && $this->comprobarValor($post["encargado"]))) {
 				$user = $this->authKey->comprobarAuth($post["key"]);
 
 				if ($user["return"]) {
-					$id = $this->laboratorio->createLaboratorioReturnID($post["descripcion"]);
+					$id = $this->laboratorio->createLaboratorioReturnID($post["descripcion"], $post["encargado"]);
 					
 					$data = $this->laboratorio->getLaboratorioById($id);
 					$data["des_lab"] = utf8_encode($data["des_lab"]);
@@ -104,7 +107,8 @@
 		public function updateLaboratorio($put){
 			if ( (isset($put["key"]) && $this->comprobarValor($put["key"])) 
 				&& (isset($put["id"]) && $this->comprobarValor($put["id"])) 
-				&& (isset($put["descripcion"]) && $this->comprobarValor($put["descripcion"]))) {
+				&& (isset($put["descripcion"]) && $this->comprobarValor($put["descripcion"]))
+				&& (isset($put["encargado"]) && $this->comprobarValor($put["encargado"]))) {
 
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
@@ -114,7 +118,7 @@
 					
 					if (isset($data["cod_lab"]) && $data["cod_lab"] != "") {
 						
-						$this->laboratorio->editLaboratorioById( $put["id"], $put["descripcion"]);
+						$this->laboratorio->editLaboratorioById( $put["id"], $put["descripcion"], $put["encargado"]);
 
 						$this->msgController->successUpdate();
 					} else {

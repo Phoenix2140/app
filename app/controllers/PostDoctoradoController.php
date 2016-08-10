@@ -33,8 +33,8 @@
 					$data = array();
 
 					foreach ($this->postdoct->getPostDoct() as $pd) {
-						$data[$contador]["cod_postdoct"] = $pd["cod_postdoct"];
-						$data[$contador]["nom_postdoct"] = utf8_encode($pd["nom_postdoct"]);
+						$data[$contador]["cod_postdoc"] = $pd["cod_postdoc"];
+						$data[$contador]["nombre_postdoc"] = utf8_encode($pd["nombre_postdoc"]);
 						$data[$contador]["origen"] = utf8_encode($pd["origen"]);
 
 						++$contador;
@@ -60,9 +60,9 @@
 
 					$data = $this->postdoct->getPostDoctById($id);
 
-					if (isset($data["cod_postdoct"]) && $data["cod_postdoct"] != "") {
+					if (isset($data["cod_postdoc"]) && $data["cod_postdoc"] != "") {
 						
-						$data["nom_postdoct"] = utf8_encode($data["nom_postdoct"]);
+						$data["nombre_postdoc"] = utf8_encode($data["nombre_postdoc"]);
 						$data["origen"] = utf8_encode($data["origen"]);
 
 						echo json_encode(array('return' => true, 'postdoctorado' => $data));
@@ -95,7 +95,7 @@
 
 					$data = $this->postdoct->getPostDoctById($id);
 
-					$data["nom_postdoct"] = utf8_encode($data["nom_postdoct"]);
+					$data["nombre_postdoc"] = utf8_encode($data["nombre_postdoc"]);
 					$data["origen"] = utf8_encode($data["origen"]);
 
 					echo json_encode(array('return' => true, 'postdoctorado' => $data));
@@ -122,7 +122,7 @@
 
 					$data = $this->postdoct->getPostDoctById($put["id"]);
 
-					if (isset($data["cod_postdoct"]) && $data["cod_postdoct"] != "") {
+					if (isset($data["cod_postdoc"]) && $data["cod_postdoc"] != "") {
 						
 						$this->postdoct->updatePostDoctById( $put["id"] , $put["nombre"] , $put["origen"]);
 

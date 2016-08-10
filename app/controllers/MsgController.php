@@ -53,6 +53,10 @@
 			$this->sendErrMessage('La fecha que intenta ingresar ya existe');
 		}
 
+		public function userExist(){
+			$this->sendErrMessage('El usuario que intenta ingresar ya existe');
+		}		
+
 		public function dateDoesNotExist(){
 			$this->sendErrMessage('La fecha que intenta editar no existe');
 		}

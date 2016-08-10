@@ -36,10 +36,9 @@
 
 					foreach ($this->linearep->getAllLineaRep() as $lrep) {
 						$data[$contador]["fecha_adscripcion"] = $lrep["fecha_adscripcion"];
-						$data[$contador]["rut_participante"] = utf8_encode($lrep["rut_participante"]);
+						$data[$contador]["rut"] = utf8_encode($lrep["rut"]);
 						$data[$contador]["cod_linea"] = $lrep["cod_linea"];
 						$data[$contador]["cod_resp"] = $lrep["cod_resp"];
-						$data[$contador]["fecha_ter"] = $lrep["fecha_ter"];
 
 						++$contador;
 					}
@@ -68,7 +67,7 @@
 					$data = $this->linearep->getLineaRepByDate($fecha);
 					if (isset($data["fecha_adscripcion"]) && $data["fecha_adscripcion"] != "") {
 						
-						$data["rut_participante"] = utf8_encode($data["rut_participante"]);
+						$data["rut"] = utf8_encode($data["rut"]);
 
 						echo json_encode(array('return' => true, 'linearep' => $data));
 					} else {
@@ -93,20 +92,20 @@
 				&& (isset($post["inicio"]) && $this->comprobarValor($post["inicio"])) 
 				&& (isset($post["rut"]) && $this->comprobarValor($post["rut"])) 
 				&& (isset($post["linea"]) && $this->comprobarValor($post["linea"])) 
-				&& (isset($post["resp"]) && $this->comprobarValor($post["resp"])) 
-				&& (isset($post["termino"]) && $this->comprobarValor($post["termino"]))) {
+				&& (isset($post["resp"]) && $this->comprobarValor($post["resp"]))) {
 				
 				$user = $this->authKey->comprobarAuth($post["key"]);
 
+				//TODO: implementar comprobación de rut existente
 				if ($user["return"]) {
 					$data = $this->linearep->getLineaRepByDate($post["inicio"]);
 
 					if(!isset($data["fecha_adscripcion"])){
 						$this->linearep->createLineaRep( $post["inicio"], $post["rut"], 
-							$post["linea"], $post["resp"], $post["termino"]);
+							$post["linea"], $post["resp"]);
 
 						$data = $this->linearep->getLineaRepByDate($post["inicio"]);
-						$data["rut_participante"] = utf8_encode($data["rut_participante"]);
+						$data["rut"] = utf8_encode($data["rut"]);
 
 						echo json_encode(array('return' => true, 'linearep' => $data));
 
@@ -115,7 +114,6 @@
 					}
 
 				} else {
-					
 					$this->msgController->invalidKey();
 				}
 				
@@ -131,8 +129,7 @@
 				&& (isset($put["inicio"]) && $this->comprobarValor($put["inicio"])) 
 				&& (isset($put["rut"]) && $this->comprobarValor($put["rut"])) 
 				&& (isset($put["linea"]) && $this->comprobarValor($put["linea"])) 
-				&& (isset($put["resp"]) && $this->comprobarValor($put["resp"])) 
-				&& (isset($put["termino"]) && $this->comprobarValor($put["termino"]))) {
+				&& (isset($put["resp"]) && $this->comprobarValor($put["resp"]))) {
 				
 				$user = $this->authKey->comprobarAuth($put["key"]);
 
@@ -143,7 +140,7 @@
 					if(isset($data["fecha_adscripcion"]) && $data["fecha_adscripcion"] == $put["inicio"]){
 						
 						$this->linearep->editLineaRepByDate( $put["inicio"], $put["rut"], 
-							$put["linea"], $put["resp"], $put["termino"]);
+							$put["linea"], $put["resp"]);
 
 						$this->msgController->successUpdate();
 

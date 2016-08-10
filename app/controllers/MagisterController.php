@@ -34,7 +34,7 @@
 					foreach ($this->magister->getMagister() as $mag) {
 						
 						$data[$contador]["cod_mg"] = $mag["cod_mg"];
-						$data[$contador]["nom_mg"] = utf8_encode($mag["nom_mg"]);
+						$data[$contador]["nombre_mg"] = utf8_encode($mag["nombre_mg"]);
 
 						++$contador;
 					}
@@ -64,7 +64,7 @@
 
 					if (isset($data["cod_mg"]) && $data["cod_mg"] != "") {
 						
-						$data["nom_mg"] = utf8_encode($data["nom_mg"]);
+						$data["nombre_mg"] = utf8_encode($data["nombre_mg"]);
 
 						echo json_encode(array('return' => true, 'magister' => $data));
 					} else {
@@ -98,7 +98,7 @@
 
 					$data = $this->magister->getMagisterById($id);
 
-					$data["nom_mg"] = utf8_encode($data["nom_mg"]);
+					$data["nombre_mg"] = utf8_encode($data["nombre_mg"]);
 
 					echo json_encode(array('return' => true, 'magister' => $data));
 

@@ -2,8 +2,9 @@
 	/**
 	 * Modelo para la base de dato laboratorio
 	 * Estructura de la tabla:
-	 *		cod_lab		MEDIUMINT(9)
-	 *		des_lab 	VARCHAR(60)
+	 *		cod_lab			MEDIUMINT(9)
+	 *		des_lab 		VARCHAR(60)
+	 *		nom_encargado 	VARCHAR(100)
 	 */
 	Class Laboratorio{
 		private $db;
@@ -13,10 +14,12 @@
 		}
 
 		//Crear una laboratorio
-		public function createLaboratorio($descripcion){
-			$this->db->query("INSERT INTO laboratorio (des_lab) VALUES (:descripcion)");
+		public function createLaboratorio($descripcion, $encargado){
+			$this->db->query("INSERT INTO laboratorio (des_lab, nom_encargado) 
+				VALUES (:descripcion, :encargado)");
 
 			$this->db->bind(':descripcion', $descripcion);
+			$this->db->bind(':encargado', $encargado);
 
 			$this->db->execute();
 
@@ -25,9 +28,11 @@
 
 		//Crear una laboratorio y retorna su ID
 		public function createLaboratorioReturnID($descripcion){
-			$this->db->query("INSERT INTO laboratorio (des_lab) VALUES (:descripcion)");
+			$this->db->query("INSERT INTO laboratorio (des_lab, nom_encargado) 
+				VALUES (:descripcion, :encargado)");
 
 			$this->db->bind(':descripcion', $descripcion);
+			$this->db->bind(':encargado', $encargado);
 
 			$this->db->execute();
 
@@ -52,11 +57,13 @@
 
 
 		//Editar una línea
-		public function editLaboratorioById($id, $descripcion){
-			$this->db->query("UPDATE laboratorio SET des_lab=:descripcion WHERE cod_lab=:id");
+		public function editLaboratorioById($id, $descripcion, $encargado){
+			$this->db->query("UPDATE laboratorio SET des_lab=:descripcion, nom_encargado=:encargado 
+				WHERE cod_lab=:id");
 
 			$this->db->bind(':id', $id);
 			$this->db->bind(':descripcion', $descripcion);
+			$this->db->bind(':encargado', $encargado);
 
 			$this->db->execute();
 		}

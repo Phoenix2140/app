@@ -33,7 +33,7 @@
 
 					foreach ($this->doctorado->getDoctorado() as $doct) {
 						$data[$contador]["cod_doct"] = $doct["cod_doct"];
-						$data[$contador]["nom_doct"] = utf8_encode($doct["nom_doct"]);
+						$data[$contador]["nombre_doct"] = utf8_encode($doct["nombre_doct"]);
 
 						++$contador;
 					}
@@ -62,7 +62,7 @@
 
 					if (isset($data["cod_doct"]) && $data["cod_doct"] != "") {
 						
-						$data["nom_doct"] = utf8_encode($data["nom_doct"]);
+						$data["nombre_doct"] = utf8_encode($data["nombre_doct"]);
 
 						echo json_encode(array('return' => true, 'doctorado' => $data));
 					} else {
@@ -92,7 +92,7 @@
 					$id = $this->doctorado->createDoctoradoReturnId($post["nombre"]);
 
 					$data = $this->doctorado->getDoctoradoById($id);
-					$data["nom_doct"] = utf8_encode($data["nom_doct"]);
+					$data["nombre_doct"] = utf8_encode($data["nombre_doct"]);
 
 					echo json_encode(array('return' => true, 'doctorado' => $data));
 				} else {

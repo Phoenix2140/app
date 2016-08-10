@@ -37,7 +37,7 @@
 			$ap_mat, $cod_prof, $cod_mg, $cod_doct, $cod_postdoct, 
 			$cod_user, $email, $telefono, $fecha_nac, $fecha_contratacion){
 
-			$this->db->query("INSERT INTO usuario( rut, nombre, pass, ap_pat, 
+			$this->db->query("INSERT INTO usuario( rut, nombre, ap_pat, 
 				ap_mat, cod_prof, cod_mg, cod_doct, cod_postdoct, cod_user, 
 				email, telefono, fecha-nac, fecha-contratacion)
 			 	VALUES (:rut, :nombre, :ap_pat, :ap_mat, :cod_prof, 
@@ -59,6 +59,40 @@
 			$this->db->bind(':fecha_contratacion', $fecha_contratacion);
 
 			$this->db->execute();
+
+		}
+
+		/**
+		 * Función que ingresa un nuevo usuario a la base de datos y retorna el ID de su Creación
+		 */
+		public function crearUsuarioReturnId( $rut, $nombre, $ap_pat, 
+			$ap_mat, $cod_prof, $cod_mg, $cod_doct, $cod_postdoct, 
+			$cod_user, $email, $telefono, $fecha_nac, $fecha_contratacion){
+
+			$this->db->query("INSERT INTO usuario( rut, nombre, ap_pat, 
+				ap_mat, cod_prof, cod_mg, cod_doct, cod_postdoct, cod_user, 
+				email, telefono, fecha-nac, fecha-contratacion)
+			 	VALUES (:rut, :nombre, :ap_pat, :ap_mat, :cod_prof, 
+			 		:cod_mg, :cod_doct, : cod_postdoct, :cod_user, :email, 
+			 		:telefono, :fecha_nac, :fecha_contratacion)");
+
+			$this->db->bind(':rut', $rut);
+			$this->db->bind(':nombre', $nombre);
+			$this->db->bind(':ap_pat', $ap_pat);
+			$this->db->bind(':ap_mat', $ap_mat);
+			$this->db->bind(':cod_prof', $cod_prof);
+			$this->db->bind(':cod_mg', $cod_mg);
+			$this->db->bind(':cod_doct', $cod_doct);
+			$this->db->bind(':cod_postdoct', $cod_postdoct);
+			$this->db->bind(':cod_user', $cod_user);
+			$this->db->bind(':email', $email);
+			$this->db->bind(':telefono', $telefono);
+			$this->db->bind(':fecha_nac', $fecha_nac);
+			$this->db->bind(':fecha_contratacion', $fecha_contratacion);
+
+			$this->db->execute();
+
+			return $this->db->lastInsertId();
 
 		}
 
@@ -93,7 +127,7 @@
 				ap_mat=:ap_mat, cod_prof=:cod_prof, cod_mg=:cod_mg, cod_doct=:cod_doct, 
 				cod_postdoct=:cod_postdoct, cod_user=:cod_user, email=:email, 
 				telefono=:telefono, fecha-nac=:fecha_nac, 
-				fecha-contratacion=:fecha_contratacion WHERE rut=:rut:");
+				fecha-contratacion=:fecha_contratacion WHERE rut=:rut");
 
 			$this->db->bind(':rut', $rut);
 			$this->db->bind(':nombre', $nombre);
