@@ -27,7 +27,7 @@
 		}
 
 		//Crear una laboratorio y retorna su ID
-		public function createLaboratorioReturnID($descripcion){
+		public function createLaboratorioReturnID($descripcion, $encargado){
 			$this->db->query("INSERT INTO laboratorio (des_lab, nom_encargado) 
 				VALUES (:descripcion, :encargado)");
 

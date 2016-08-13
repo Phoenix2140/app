@@ -23,6 +23,24 @@
 		public function indexAction(){
 			$this->view->baseUrl = $this->config->get('baseUrl'); //obtenemos la URL base del proyecto para pasarla a la vista
 
+			$this->view->logindoc = $this->view->render($this->config->get('viewsDir').'logindoc.php');
+
+			$this->view->lineasdoc = $this->view->render($this->config->get('viewsDir').'lineasdoc.php');
+
+			$this->view->tipouserdoc = $this->view->render($this->config->get('viewsDir').'tipouserdoc.php');
+
+			$this->view->profesiondoc = $this->view->render($this->config->get('viewsDir').'profesiondoc.php');
+
+			$this->view->magisterdoc = $this->view->render($this->config->get('viewsDir').'magisterdoc.php');
+
+			$this->view->doctoradodoc = $this->view->render($this->config->get('viewsDir').'doctoradodoc.php');
+
+			$this->view->postdoctoradodoc = $this->view->render($this->config->get('viewsDir').'postdoctoradodoc.php');
+
+			$this->view->respdoc = $this->view->render($this->config->get('viewsDir').'respdoc.php');
+
+			$this->view->laboratoriodoc = $this->view->render($this->config->get('viewsDir').'laboratoriodoc.php');
+
 			echo $this->view->render($this->config->get('viewsDir').'documentacion.php');
 		}
 	}
