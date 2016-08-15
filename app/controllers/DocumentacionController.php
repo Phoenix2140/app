@@ -41,6 +41,8 @@
 
 			$this->view->laboratoriodoc = $this->view->render($this->config->get('viewsDir').'laboratoriodoc.php');
 
+			$this->view->linearepdoc = $this->view->render($this->config->get('viewsDir').'linearepdoc.php');
+
 			echo $this->view->render($this->config->get('viewsDir').'documentacion.php');
 		}
 	}

@@ -31,6 +31,8 @@
 						<?php echo $respdoc; ?>
 
 						<?php echo $laboratoriodoc; ?>
+
+						<?php echo $linearepdoc; ?>
 						
 					</div>
 				</div>
