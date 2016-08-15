@@ -12,7 +12,8 @@
 		public function __construct($config){
 			$this->config = $config;
 
-			require_once($this->config->get('modelsDir').'LineaRep.php');
+			require_once($this->config->get('modelsDir').'Li
+				neaRep.php');
 			$this->linearep = new LineaRep($this->config);
 
 			require_once($this->config->get('controllersDir').'AuthController.php');
