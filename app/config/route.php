@@ -20,6 +20,7 @@
 	require_once($config->get('controllersDir').'LineaRepController.php');
 	require_once($config->get('controllersDir').'LaboratorioController.php');
 	require_once($config->get('controllersDir').'UsuariosController.php');
+	require_once($config->get('controllersDir').'AsignaturaController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -35,6 +36,7 @@
 	$ctrlLineaRep = new LineaRepController($config);
 	$ctrlLaboratorio = new LaboratorioController($config);
 	$ctrlUsuarios = new UsuariosController($config);
+	$ctrlAsignatura = new AsignaturaController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -190,6 +192,17 @@
 				}elseif(isset($enlace[$seccion+1])){
 
 					$ctrlUsuarios->getUsuarioList($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
+			case 'Asignatura'
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlAsignatura->getAsignaturaById($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlAsignatura->getAsignaturas($enlace[$seccion+1]); //Obtenemos la lista completa
 				}else{
 					noKey(); //Mensaje de error ()
 				}

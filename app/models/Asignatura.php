@@ -30,7 +30,7 @@
 			return $this->db->resultSet();
 		}
 		//Obtener asignatura por codigo
-		public function getAsignarutasByNombre($id){
+		public function getAsignarutasById($id){
 				$this->db->query("SELECT * FROM asignaturas WHERE cod_asignaruta= :id");
 
 				$this->db->bind(':id',$id);
