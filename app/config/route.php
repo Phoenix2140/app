@@ -196,7 +196,7 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
-			case 'Asignatura'
+			case 'Asignatura':
 				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
 					
 					$ctrlAsignatura->getAsignaturaById($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID

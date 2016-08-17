@@ -1,19 +1,37 @@
 <?php 
 	/**
 	 * Modelo para la basede datos estudiantes
+	 * Estructura de la tabla
+	 * rut 			varchar(30)
+	 * nombre		varchar(45)
+	 * ap_pat   	varchar(45)
+	 * ap_mat 		varchar(45)
+	 * fecha_nac 	date
+	 * cod_prof		TINTINT
+	 * domicilio 	varchar(45)
+	 * telefono		varchar(45)
 	 */
 	Class Estudiantes{
-		private $config;
 		private $db;
 
 		//Constructor del modelo
 		public function __construct($config){
-			$this->config = $config; //Asignamos el objeto de configuración a una variable local
-
-			$this->db = new Database($this->config); //importamos el soporte para la base de datos
+			$this->db = new Database($config); //importamos el soporte para la base de datos
 		}
 
-		public function crearEstudiante(){
+		public function crearEstudiante($rut,$nombres,$ap_pat,$ap_mat,$fecha_nac,$cod_prof,$domicilio,$telefono){
+			$this->db->query("INSERT INTO estudiantes (rut, nombres, ap_pat, ap_mat, fecha_nac, cod_prof, domicilio, telefono) VALUES (:rut,:nombres,:ap_pat,:ap_mat,:fecha_nac,:cod_prof,:domicilio,:telefono)");
+
+			$this->db->bind(":rut",$rut);
+			$this->db->bind(":nombres",$nombres);
+			$this->db->bind(":ap_pat",$ap_pat);
+			$this->db->bind(":ap_mat",$ap_mat);
+			$this->db->bind(":fecha_nac",$fecha_nac);
+			$this->db->bind(":cod_prof",$cod_prof);
+			$this->db->bind(":domicilio",$domicilio);
+			$this->db->bind(":telefono",$telefono);
+
+			$this->db->execute();
 
 		}
 
