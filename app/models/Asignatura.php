@@ -35,7 +35,7 @@
 
 				$this->db->bind(':id',$id);
 
-				return $this->db->resultSet();
+				return $this->db->single();
 		}
 		//editar asignatura
 		public function editAsignaturaById($cod,$nombre,$semestre,$anho){
