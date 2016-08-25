@@ -54,7 +54,7 @@
 			return $this->db->single();
 		}
 		//Función para actualizar valores en tabla estudiantes
-		public function updateEstudianteByRut($rut,$nombres,$ap_pat,$ap_mat,$fecha_nac,$cod_prof,$domicilio,$telefono)){
+		public function updateEstudianteByRut($rut,$nombres,$ap_pat,$ap_mat,$fecha_nac,$cod_prof,$domicilio,$telefono){
 			$this->db->query("UPDATE estudiantes SET nombres=:nombres, ap_pat=:ap_pat, ap_mat=:ap_mat, fecha_nac=:fecha_nac, cod_prof=:cod_prof, domicilio=:domicilio, telefono=:telefono WHERE rut=:rut");
 			$this->db->bind(":rut",$rut);
 			$this->db->bind(":nombres",$nombres);
