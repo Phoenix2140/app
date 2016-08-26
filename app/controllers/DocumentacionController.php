@@ -43,6 +43,8 @@
 
 			$this->view->linearepdoc = $this->view->render($this->config->get('viewsDir').'linearepdoc.php');
 
+			$this->view->docentesdoc = $this->view->render($this->config->get('viewsDir').'docentesdoc.php');
+
 			echo $this->view->render($this->config->get('viewsDir').'documentacion.php');
 		}
 	}

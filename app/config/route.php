@@ -21,6 +21,7 @@
 	require_once($config->get('controllersDir').'LaboratorioController.php');
 	require_once($config->get('controllersDir').'UsuariosController.php');
 	require_once($config->get('controllersDir').'AsignaturaController.php');
+	require_once($config->get('controllersDir').'DocentesController.php');
 
 	//Asignamos los controladores a las variables objeto
 	$login = new LoginController($config);
@@ -37,6 +38,7 @@
 	$ctrlLaboratorio = new LaboratorioController($config);
 	$ctrlUsuarios = new UsuariosController($config);
 	$ctrlAsignatura = new AsignaturaController($config);
+	$ctrlDocentes = new DocentesController($config);
 
 	$seccion = $config->get('deep'); //Asignamos la variable de profundidad a la sección, para dividir la profundidad de la ruta
 
@@ -207,6 +209,17 @@
 					noKey(); //Mensaje de error ()
 				}
 				break;
+			case 'docentes':
+				if(isset($enlace[$seccion+1]) && isset($enlace[$seccion+2])){
+					
+					$ctrlDocentes->getDocenteById($enlace[$seccion+1], $enlace[$seccion+2]);//obtenemos un solo dato por el ID
+				}elseif(isset($enlace[$seccion+1])){
+
+					$ctrlDocentes->getDocentesList($enlace[$seccion+1]); //Obtenemos la lista completa
+				}else{
+					noKey(); //Mensaje de error ()
+				}
+				break;
 			default:
 				noAction();
 				break;
@@ -242,6 +255,8 @@
 				break;
 			case 'usuario': $ctrlUsuarios->createUsuario($_POST);
 				break;
+			case 'docentes': $ctrlDocentes->createDocente($_POST);
+				break;
 			default: noAction();
 				break;
 		}
@@ -273,6 +288,8 @@
 				break;
 			case 'usuario': $ctrlUsuarios->updateUsuario($_PUT);
 				break;
+			case 'docentes': $ctrlDocentes->updateDocentebyId($_PUT);
+				break;
 			default: noAction();
 				break;
 		}
@@ -303,6 +320,8 @@
 			case 'laboratorio': $ctrlLaboratorio->deleteLaboratorio($_DELETE);
 				break;
 			case 'usuario': $ctrlUsuarios->deleteUsuario($_DELETE);
+				break;
+			case 'docentes': $ctrlDocentes->disableDocenteById($_DELETE);
 				break;
 			default: noAction();
 				break;

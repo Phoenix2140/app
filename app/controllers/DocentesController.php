@@ -108,31 +108,38 @@
 				(isset($post["mg"]) && $this->comprobarValor($post["mg"])) && 
 				(isset($post["profesor"]) && $this->comprobarValor($post["profesor"])) && 
 				(isset($post["jerarquia"]) && $this->comprobarValor($post["jerarquia"])) && 
+				(isset($post["docente"]) && $this->comprobarValor($post["docente"])) && 
 				(isset($post["prof"]) && $this->comprobarValor($post["prof"]))) {
 
 				$user = $this->authKey->comprobarAuth($post["key"]);
 				
 				if ($user["return"]) {
 
-					if (isset($post["extranjero"]) && $this->comprobarValor($post["extranjero"])) {
-						$extranjero = true;
-					} else {
-						$extranjero = false;
+					//Verificar que no exista el usuario
+					$obtenerDocente = $this->docentes->getDocenteByRut($post["rut"]);
+					if(!isset($obtenerDocente["rut"])){
+						if (isset($post["extranjero"]) && $this->comprobarValor($post["extranjero"])) {
+							$extranjero = true;
+						} else {
+							$extranjero = false;
+						}
+
+						$id = $this->docentes->createDocenteReturnId($post["rut"], 
+							$post["nombre"], $post["appat"], $post["apmat"], $post["email"], 
+							$post["fono"], $post["fecha"], $post["docente"], $extranjero, 
+							true, $post["postdoc"], $post["doct"], $post["mg"], 
+							$post["profesor"], $post["jerarquia"], $post["prof"]);
+
+						$data = $this->docentes->getDocenteByRut($post["rut"]);
+
+						$data["nombre"] = utf8_encode($data["nombre"]);
+						$data["ap_pat"] = utf8_encode($data["ap_pat"]);
+						$data["ap_mat"] = utf8_encode($data["ap_mat"]);
+
+						echo json_encode(array('return' => true, 'docente' => $data));
+					}else{
+						$this->msgController->userExist();
 					}
-
-					$id = $this->docentes->createDocenteReturnId($post["rut"], 
-						$post["nombre"], $post["appat"], $post["apmat"], $post["email"], 
-						$post["fono"], $post["fecha"], $post["docente"], $extranjero, 
-						true, $post["postdoc"], $post["doct"], $post["mg"], 
-						$post["profesor"], $post["jerarquia"], $post["prof"]);
-
-					$data = $this->docentes->getDocenteByRut($id);
-
-					$data["nombre"] = utf8_encode($data["nombre"]);
-					$data["ap_pat"] = utf8_encode($data["ap_pat"]);
-					$data["ap_mat"] = utf8_encode($data["ap_mat"]);
-
-					echo json_encode(array('return' => true, 'docente' => $data));
 
 				} else {
 					$this->msgController->invalidKey();
@@ -165,19 +172,27 @@
 				
 				if ($user["return"]) {
 
-					if (isset($put["extranjero"]) && $this->comprobarValor($put["extranjero"])) {
-						$extranjero = true;
-					} else {
-						$extranjero = false;
+					$obtenerDocente = $this->docentes->getDocenteByRut($put["rut"]);
+
+					if(isset($obtenerDocente["rut"])){
+						if (isset($put["extranjero"]) && $this->comprobarValor($put["extranjero"])) {
+							$extranjero = true;
+						} else {
+							$extranjero = false;
+						}
+
+						$this->docentes->updateDocentebyRut($put["rut"], 
+							$put["nombre"], $put["appat"], $put["apmat"], $put["email"], 
+							$put["fono"], $put["fecha"], $put["docente"],  
+							$put["postdoc"], $put["doct"], $put["mg"], 
+							$put["profesor"], $put["jerarquia"], $put["prof"]);
+
+						$this->msgController->successUpdate();
+						
+					}else{
+						$this->msgController->userNotExist();
 					}
 
-					$this->docentes->updateDocentebyRut($put["rut"], 
-						$put["nombre"], $put["appat"], $put["apmat"], $put["email"], 
-						$put["fono"], $put["fecha"], $put["docente"],  
-						$put["postdoc"], $put["doct"], $put["mg"], 
-						$put["profesor"], $put["jerarquia"], $put["prof"]);
-
-					$this->msgController->successUpdate();
 				} else {
 					$this->msgController->invalidKey();
 				}

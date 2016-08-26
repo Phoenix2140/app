@@ -33,6 +33,8 @@
 						<?php echo $laboratoriodoc; ?>
 
 						<?php echo $linearepdoc; ?>
+
+						<?php echo $docentesdoc; ?>
 						
 					</div>
 				</div>
