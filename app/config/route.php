@@ -279,7 +279,7 @@
 			case 'users': 
 				if(isset($enlace[$seccion+1])){
 					switch ($enlace[$seccion+1]) {
-						case 'login': $ctrlUsers->login($_POST);
+						case 'login': $ctrlUsers->login();
 							break;
 						case 'logout': $ctrlUsers->logout();
 							break;

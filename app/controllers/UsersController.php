@@ -17,12 +17,13 @@
 			$this->logins = new Logins($config);
 		}
 
-		public function login($post){
-			var_dump($post);
+		public function login(){
+			$credentials = json_decode( file_get_contents('php://input') );
+
 			//Comprobamos que los campos no estén vacíos
-			if($this->comprobarDatos($post)){
+			if($this->comprobarDatos($credentials)){
 				//Llamamos al modelo consultando por el usuario y contraseña
-				$usuario = $this->logins->getUsuarioKey($post["username"], $post["password"]);
+				$usuario = $this->logins->getUsuarioKey($credentials->username, $credentials->password);
 
 				//Si el usuario existe y devuelve una llave se le retorna al usuario,
 				//sino devuelve un error
@@ -80,9 +81,9 @@
 			}
 		}
 
-		private function comprobarDatos($post){
-			if((isset($post["username"]) && !is_null($post["username"])) 
-				&& (isset($post["password"]) && !is_null($post["password"]))){
+		private function comprobarDatos($credentials){
+			if((isset($credentials->username) && !is_null($credentials->username)) 
+				&& (isset($credentials->password) && !is_null($credentials->password))){
 				return true;
 			}else{
 				return false;
