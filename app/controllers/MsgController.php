@@ -69,6 +69,10 @@
 			$this->sendErrMessage('No se encontró los datos que busca');
 		}
 
+		public function noSession(){
+			$this->sendErrMessage('No existe sesión o ha expirado');
+		}
+
 		private function sendErrMessage($message){
 			echo json_encode(array('return' => false, 'msgError' => $message));	
 		}

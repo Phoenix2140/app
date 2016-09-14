@@ -37,6 +37,9 @@
 				//Si el usuario existe y devuelve una llave se le retorna al usuario,
 				//sino devuelve un error
 				if(isset($usuario["key"]) && !is_null($usuario["key"])){
+					//TODO: Agregar más datos al usuario
+					$_SESSION["key"] = $usuario["key"];
+
 					echo json_encode(array('return' => true, 'user' => $usuario));
 				}else{
 					$this->msgController->invalidUserPass();				
