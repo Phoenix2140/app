@@ -33,12 +33,12 @@
 					setcookie("sid",$usuario["id_login"]);
 					setcookie("id",$usuario["id_login"]);
 					setcookie("username",utf8_encode($usuario["nombre"]));
-					setcookie("rol",$usuario["rol"]);
+					setcookie("role",$usuario["rol"]);
 					setcookie("key",$usuario["key"]);
 
 					$newUser["id"] = $usuario["id_login"];
 					$newUser["username"] = utf8_encode($usuario["nombre"]);
-					$newUser["rol"] = $usuario["rol"];
+					$newUser["role"] = $usuario["rol"];
 					$newUser["key"] = $usuario["key"];
 
 					echo json_encode(array('user' => $newUser));
@@ -58,7 +58,7 @@
 
 				$newUser["id"] = $usuario["id_login"];
 				$newUser["username"] = utf8_encode($usuario["nombre"]);
-				$newUser["rol"] = $usuario["rol"];
+				$newUser["role"] = $usuario["rol"];
 				$newUser["key"] = $usuario["key"];
 
 				echo json_encode(array('user' => $newUser));
@@ -73,7 +73,7 @@
 				setcookie("sid", null, time()-1);
 				setcookie("id", null, time()-1);
 				setcookie("username", null, time()-1);
-				setcookie("rol",null, time()-1);
+				setcookie("role",null, time()-1);
 				setcookie("key", null, time()-1);
 
 				echo json_encode(array('response' => true));
