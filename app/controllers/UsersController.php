@@ -18,6 +18,7 @@
 		}
 
 		public function login($post){
+			var_dump($post);
 			//Comprobamos que los campos no estén vacíos
 			if($this->comprobarDatos($post)){
 				//Llamamos al modelo consultando por el usuario y contraseña
