@@ -21,7 +21,7 @@
 			//Comprobamos que los campos no estén vacíos
 			if($this->comprobarDatos($post)){
 				//Llamamos al modelo consultando por el usuario y contraseña
-				$usuario = $this->logins->getUsuarioKey($post["user"], $post["pass"]);
+				$usuario = $this->logins->getUsuarioKey($post["username"], $post["password"]);
 
 				//Si el usuario existe y devuelve una llave se le retorna al usuario,
 				//sino devuelve un error
@@ -80,8 +80,8 @@
 		}
 
 		private function comprobarDatos($post){
-			if((isset($post["user"]) && !is_null($post["user"])) 
-				&& (isset($post["pass"]) && !is_null($post["pass"]))){
+			if((isset($post["username"]) && !is_null($post["username"])) 
+				&& (isset($post["password"]) && !is_null($post["password"]))){
 				return true;
 			}else{
 				return false;
