@@ -18,6 +18,7 @@
 		}
 
 		public function login(){
+			//Obtenemos y decodigicamos el json
 			$credentials = json_decode( file_get_contents('php://input') );
 
 			//Comprobamos que los campos no estén vacíos
@@ -42,10 +43,10 @@
 
 					echo json_encode(array('user' => $newUser));
 				}else{
-					$this->msgController->invalidUserPass();				
+					// $this->msgController->invalidUserPass();				
 				}
 			}else{
-				$this->msgController->nullVar();
+				// $this->msgController->nullVar();
 			}
 		}
 
@@ -62,7 +63,7 @@
 
 				echo json_encode(array('user' => $newUser));
 			}else{
-				$this->msgController->invalidUserPass();
+				//$this->msgController->invalidUserPass();
 			}
 		}
 
@@ -77,7 +78,7 @@
 
 				echo json_encode(array('response' => true));
 			}else{
-				$this->msgController->invalidUserPass();
+				// $this->msgController->invalidUserPass();
 			}
 		}
 
